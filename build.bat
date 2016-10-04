@@ -25,9 +25,9 @@ REM call dotnet build --configuration %config%
 if not "%errorlevel%"=="0" goto failure
 
 REM Unit tests
-rem cd test\Configuration.EntityFramework.Tests
-rem call dotnet test  --configuration %config%
-rem not "%errorlevel%"=="0" goto failure
+cd test\Configuration.EntityFramework.Tests
+call dotnet test  --configuration %config%
+not "%errorlevel%"=="0" goto failure
 
 
 :success
