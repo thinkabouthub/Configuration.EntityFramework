@@ -12,21 +12,25 @@ namespace Configuration.EntityFramework
 
         private readonly string _application;
 
-        public EFConfigurationSource(string application, Action<DbContextOptionsBuilder> optionsAction)
+        private readonly bool _ensureCreated;
+
+        public EFConfigurationSource(string application, Action<DbContextOptionsBuilder> optionsAction, bool ensureCreated = false)
         {
-            _application = application;
-            _optionsAction = optionsAction;
+            this._application = application;
+            this._optionsAction = optionsAction;
+            this._ensureCreated = ensureCreated;
         }
 
-        public EFConfigurationSource(string application, ConfigurationContext context)
+        public EFConfigurationSource(string application, ConfigurationContext context, bool ensureCreated = false)
         {
             _application = application;
             _context = context;
+            this._ensureCreated = ensureCreated;
         }
 
         public IConfigurationProvider Build(IConfigurationBuilder builder)
         {
-            return _context != null ? new EFConfigurationProvider(_application, _context) : new EFConfigurationProvider(_application, _optionsAction);
+            return _context != null ? new EFConfigurationProvider(this._application, this._context, this._ensureCreated) : new EFConfigurationProvider(this._application, this._optionsAction, this._ensureCreated);
         }
     }
 }
