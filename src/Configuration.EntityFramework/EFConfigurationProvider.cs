@@ -12,16 +12,18 @@ namespace Configuration.EntityFramework
     {
         protected string Application;
 
-        public EFConfigurationProvider(string application, Action<DbContextOptionsBuilder> optionsAction)
+        public EFConfigurationProvider(string application, Action<DbContextOptionsBuilder> optionsAction, bool ensureCreated = false)
         {
             this.Application = application;
             this.OptionsAction = optionsAction;
+            this.EnsureCreated = ensureCreated;
         }
 
-        public EFConfigurationProvider(string application, ConfigurationContext context)
+        public EFConfigurationProvider(string application, ConfigurationContext context, bool ensureCreated = false)
         {
             this.Application = application;
             this.Context = context;
+            this.EnsureCreated = ensureCreated;
         }
 
         protected virtual Action<DbContextOptionsBuilder> OptionsAction { get; set; }
@@ -29,6 +31,8 @@ namespace Configuration.EntityFramework
         protected virtual ConfigurationContext Context { get; set; }
 
         protected virtual bool IsContextOwner { get; set; }
+
+        protected virtual bool EnsureCreated { get; set; }
 
         public override void Load()
         {
@@ -38,6 +42,7 @@ namespace Configuration.EntityFramework
                 var builder = new DbContextOptionsBuilder<ConfigurationContext>();
                 this.OptionsAction(builder);
                 this.Context = new ConfigurationContext(builder.Options);
+                if (EnsureCreated) this.Context.Database.EnsureCreated();
                 this.IsContextOwner = true;
             }
             try

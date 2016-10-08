@@ -9,7 +9,7 @@ namespace Configuration.EntityFramework
         public override void Map(EntityTypeBuilder<SectionEntity> b)
         {
             b.HasIndex(i => new { i.ApplicationName, i.SectionName }).HasName("IX_Section_ApplicationName_SectionName").IsUnique();
-
+           
             b.Property(p => p.ApplicationName).HasMaxLength(50);
             b.Property(p => p.SectionName).HasMaxLength(50);
             b.Property(p => p.ModifiedUser).HasMaxLength(50);
