@@ -50,6 +50,10 @@ namespace Configuration.EntityFramework
                 if (value != null)
                 {
                     this.Json = JsonConvert.SerializeObject(value);
+                    if (string.IsNullOrEmpty(this.DefaultValue))
+                    {
+                        this.DefaultValue = this.Json;
+                    }
                     var name = value.GetType().AssemblyQualifiedName.Split(Convert.ToChar(","));
                     ValueType = $"{name[0].Trim()}, {name[1].Trim()}";
                 }
