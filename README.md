@@ -6,6 +6,8 @@
 
 # So why use Configuration.EntityFramework?
 
+Configuration.EntityFramework is
+
 
 # How do I get started?
 
