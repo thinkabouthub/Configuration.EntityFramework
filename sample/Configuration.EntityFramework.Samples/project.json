@@ -1,0 +1,19 @@
+﻿{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "emitEntryPoint": true
+  },
+
+  "dependencies": {
+    "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
+    "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0",
+    "Microsoft.Extensions.Configuration.FileExtensions": "1.0.0",
+    "Microsoft.Extensions.Configuration.Json": "1.0.0",
+    "Configuration.EntityFramework": "1.0.1-*",
+    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.1",
+  },
+
+  "frameworks": {
+    "net462": {}
+  }
+}

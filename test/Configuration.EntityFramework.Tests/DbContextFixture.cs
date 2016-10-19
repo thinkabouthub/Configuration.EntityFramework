@@ -24,7 +24,7 @@ namespace Configuration.EntityFramework.Tests
 
         public virtual void Initialise(string identifier = null)
         {
-            this.InitialiseWithName("DefaultConnection", identifier);
+            this.InitialiseWithName("ConfigurationContext", identifier);
         }
 
         public virtual void InitialiseWithName(string connectionName, string identifier = null)

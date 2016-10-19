@@ -20,7 +20,7 @@
     "summary": "Configuration EntityFramework",
     "releaseNotes": "Initial Release",
     "requireLicenseAcceptance": false,
-    "tags": [ "Configuration.EntityFramework", "Configuration", "EntityFramework", "c#", "dotnetcore" ],
+    "tags": [ "Configuration.EntityFramework", "Configuration", "EntityFramework", "c#" ],
     "iconUrl": "https://raw.githubusercontent.com/thinkabouthub/Configuration.EntityFramework/master/configuration.entityframework_icon.png",
     "files": {
       "includeFiles": []

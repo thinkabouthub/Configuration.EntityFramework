@@ -7,6 +7,16 @@ namespace Configuration.EntityFramework
 {
     public static class IConfigurationRootExtensions
     {
+        public static bool SectionExists(this IConfigurationRoot configuration, string section)
+        {
+            return configuration.GetSection(section) != null;
+        }
+
+        public static T TryGetSection<T>(this IConfigurationRoot configuration, string section, bool loadDefaultValues = true) where T : new()
+        {
+            return SectionExists(configuration, section) ? GetSection<T>(configuration, section, loadDefaultValues) : default(T);
+        }
+
         public static T GetSection<T>(this IConfigurationRoot configuration, string section, bool loadDefaultValues = true) where T : new()
         {
             var instance = new T();

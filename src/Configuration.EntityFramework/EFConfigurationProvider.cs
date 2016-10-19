@@ -39,9 +39,16 @@ namespace Configuration.EntityFramework
             this.Data = new Dictionary<string, string>();
             if (this.Context == null)
             {
-                var builder = new DbContextOptionsBuilder<ConfigurationContext>();
-                this.OptionsAction(builder);
-                this.Context = new ConfigurationContext(builder.Options);
+                if (this.OptionsAction != null)
+                {
+                    var builder = new DbContextOptionsBuilder<ConfigurationContext>();
+                    this.OptionsAction(builder);
+                    this.Context = new ConfigurationContext(builder.Options);
+                }
+                else
+                {
+                    this.Context = new ConfigurationContext();
+                }
                 if (EnsureCreated) this.Context.Database.EnsureCreated();
                 this.IsContextOwner = true;
             }

@@ -14,6 +14,17 @@ namespace Configuration.EntityFramework
 
         private readonly bool _ensureCreated;
 
+        public EFConfigurationSource(bool ensureCreated = false)
+        {
+            this._ensureCreated = ensureCreated;
+        }
+
+        public EFConfigurationSource(string application, bool ensureCreated = false)
+        {
+            this._application = application;
+            this._ensureCreated = ensureCreated;
+        }
+
         public EFConfigurationSource(string application, Action<DbContextOptionsBuilder> optionsAction, bool ensureCreated = false)
         {
             this._application = application;
