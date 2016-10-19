@@ -1,4 +1,5 @@
-# Configuration.EntityFramework
+# <img src="https://github.com/thinkabouthub/Configuration.EntityFramework/blob/master/configuration.entityframework_icon.png" width="48">onfiguration.EntityFramework 
+## for .NET Framework & .NET Core
 
  
 ## Build Status
