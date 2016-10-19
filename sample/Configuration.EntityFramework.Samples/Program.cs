@@ -15,7 +15,7 @@ namespace Configuration.EntityFramework.Samples
             var config = new ConfigurationBuilder()
                 .SetBasePath(Environment.CurrentDirectory)
                 .AddJsonFile("appsettings.json", true, true)
-                .AddEntityFrameworkConfig("Sample").Build(); // Only load settings using EntityFramework Configuration Provider for Sample application
+                .AddEntityFrameworkConfig("Sample").Build(); // Only load settings using EntityFramework Configuration Provider for "Sample" application
 
             // Check Configuration Section Exists
             var exists = config.SectionExists("SectionWithChild");
