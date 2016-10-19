@@ -8,6 +8,9 @@
     "Microsoft.Extensions.Configuration.Json": "1.0.0"
   },
   "frameworks": {
+    "netcoreapp1.0": {
+      "“imports”": "“dnxcore50”"
+    },
     "net462": {}
   },
   "buildOptions": {
@@ -20,7 +23,7 @@
     "summary": "EntityFramework Configuration Provider",
     "releaseNotes": "Initial Release",
     "requireLicenseAcceptance": false,
-    "tags": [ "Configuration.EntityFramework", "Configuration", "EntityFramework", "c#" ],
+    "tags": [ "Configuration.EntityFramework", "Configuration", "EntityFramework", "c#", "dotnetcore" ],
     "iconUrl": "https://raw.githubusercontent.com/thinkabouthub/Configuration.EntityFramework/master/configuration.entityframework_icon.png",
     "files": {
       "includeFiles": []

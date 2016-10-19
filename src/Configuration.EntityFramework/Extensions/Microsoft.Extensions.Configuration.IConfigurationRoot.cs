@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using Microsoft.Extensions.Configuration;
 
 namespace Configuration.EntityFramework
@@ -27,14 +28,14 @@ namespace Configuration.EntityFramework
 
         public static void LoadDefaultValues(this IConfigurationRoot root, object obj)
         {
-            var properties = obj.GetType().GetProperties().Where(p => p.GetCustomAttributes(typeof(DefaultValueAttribute), true).Any());
-            foreach (var property in properties.Where(p => p.PropertyType.IsSimple()))
+            var properties = obj.GetType().GetTypeInfo().GetProperties().Where(p => p.GetCustomAttributes(typeof(DefaultValueAttribute), true).Any());
+            foreach (var property in properties.Where(p => p.PropertyType.GetTypeInfo().IsSimple()))
             {
                 var attribute = (DefaultValueAttribute)property.GetCustomAttributes(typeof(DefaultValueAttribute), true).First();
                 var value = Convert.ChangeType(attribute.Value, property.PropertyType);
                 property.SetValue(obj, value);
             }
-            foreach (var property in properties.Where(p => !p.PropertyType.IsSimple() && !p.PropertyType.IsArray))
+            foreach (var property in properties.Where(p => !p.PropertyType.GetTypeInfo().IsSimple() && !p.PropertyType.IsArray))
             {
                 var child = Activator.CreateInstance(property.PropertyType);
                 root.LoadDefaultValues(child);

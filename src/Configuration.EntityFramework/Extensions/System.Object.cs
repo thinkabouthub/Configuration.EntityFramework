@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
-using Microsoft.Extensions.Configuration;
+using System.Reflection;
 
 namespace Configuration.EntityFramework
 {
@@ -9,7 +9,7 @@ namespace Configuration.EntityFramework
     {
         public static void LoadDefaultValues(this object obj)
         {
-            var properties = obj.GetType().GetProperties().Where(p => p.GetCustomAttributes(typeof(DefaultValueAttribute), true).Any());
+            var properties = obj.GetType().GetTypeInfo().GetProperties().Where(p => p.GetCustomAttributes(typeof(DefaultValueAttribute), true).Any());
             foreach (var property in properties)
             {
                 var attribute = (DefaultValueAttribute)property.GetCustomAttributes(typeof(DefaultValueAttribute), true).First();

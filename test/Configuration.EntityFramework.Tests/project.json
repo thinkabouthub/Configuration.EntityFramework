@@ -12,6 +12,9 @@
   },
 
   "frameworks": {
+    //"netcoreapp1.0": {
+    //  "“imports”": "“dnxcore50”"
+    //},
     "net462": {}
   },
 
