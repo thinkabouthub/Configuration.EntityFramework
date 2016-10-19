@@ -30,7 +30,7 @@ Some settings, such as a connection string or those required during the initiali
 6. Common settings can be shared among many applications. Support for single point of change,
 7. In a complex system with many related applications or services it's not uncommon to have many configuration files. By persisting settings to a database, the dependency on these configuration files can be reduced,
 8. All settings for a select criteria, such as environment, application or section can be retrieved with a single query,
-9. Allow end users to update settings via the EntityFramework Context,
+9. Allow end users to update settings via the EntityFramework Context.
 
 # Compatibility
 
