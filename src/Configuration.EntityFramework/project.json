@@ -17,7 +17,7 @@
   },
   "packOptions": {
     "owners": [ "Patrick Nolan" ],
-    "summary": "Configuration EntityFramework",
+    "summary": "EntityFramework Configuration Provider",
     "releaseNotes": "Initial Release",
     "requireLicenseAcceptance": false,
     "tags": [ "Configuration.EntityFramework", "Configuration", "EntityFramework", "c#" ],
