@@ -46,6 +46,36 @@ You can get Configuration.EntityFramework by [grabbing the latest NuGet package]
 ## Get Help
 **Need help with Configuration.EntityFramework?** We're ready to answer your questions on [Stack Overflow](http://stackoverflow.com/questions/tagged/configuration.entityframework). Our [blog page](https://thinkabout.ghost.io/) is also a useful source of information and updates.
 
+##Super-duper quick start
+
+Initialise Configuration.EntityFramework.
+```C#
+var config = new ConfigurationBuilder()
+       .SetBasePath(Environment.CurrentDirectory)
+       .AddJsonFile("appsettings.json", true, true)
+       .AddEntityFrameworkConfig().Build();
+```       
+
+Check Configuration Section Exists.
+```C#            
+var exists = config.SectionExists("SampleSection");
+``` 
+
+Get Configuration Section for complex type. Return null if section does not exist.
+```C#   
+var section = config.TryGetSection<ComplexType>("SampleSection");
+``` 
+
+Get Configuration Section for complex type. Return default value if section does not exist.
+```C# 
+var section = config.GetSection<SectionWithChild>("SampleSection");
+``` 
+
+Get Configuration Value for Key. 
+```C# 
+var setting = config.GetValue<string>("TestSetting");
+``` 
+
 ## Project
 
 - [Configuration.EntityFramework](https://www.nuget.org/packages?q=configuration.entityframework) - [this repo](https://github.com/thinkabouthub/Configuration.EntityFramework).
