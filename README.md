@@ -48,12 +48,25 @@ You can get Configuration.EntityFramework by [grabbing the latest NuGet package]
 
 ##Super-duper quick start
 
+Create Configuration.EntityFramework database.
+
+```C#
+var options = new DbContextOptionsBuilder<ConfigurationContext>().UseSqlServer(
+      @"Data Source=.;Initial Catalog=Configuration;Integrated Security=True").Options;
+
+using (var context = new ConfigurationContext(options))
+{
+  context.Database.EnsureCreated();
+}
+```  
+
 Initialise Configuration.EntityFramework.
 ```C#
 var config = new ConfigurationBuilder()
-       .SetBasePath(Environment.CurrentDirectory)
-       .AddJsonFile("appsettings.json", true, true)
-       .AddEntityFrameworkConfig().Build();
+   .SetBasePath(Environment.CurrentDirectory)
+   .AddJsonFile("appsettings.json", true, true)
+   .AddEntityFrameworkConfig(builder => builder.UseSqlServer(@"Data Source=.;Initial Catalog=Configuration;Integrated Security=True"))
+   .Build();
 ```       
 
 Check Configuration Section Exists.
