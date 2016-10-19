@@ -22,10 +22,15 @@ Configuration.EntityFramework is a custom configuration provider for the [.NET C
 # So why use Configuration.EntityFramework?
 Some settings, such as a connection string or those required during the initialisation of an application may be better located in a local file rather than a repository. However, in many cases a database can present some distinct advantages, including;  
 
-1. Configuration Management. This is particularly relevant to a distributed environment,
-2. Common settings can be shared among many applications. Support for single point of change,
-3. In a complex system with many related applications or services it's not uncommon to have many configuration files. By persisting settings to a database, the dependency on these configuration files can be reduced,
-4. All settings related to an environment can be retrieved with a single query,
+1. Makes use of the .NET Core configuration provider model,
+2. Support for complex types,
+3. Access configured settings in a strongly typed fashion using the [Options pattern] (https://docs.asp.net/en/latest/fundamentals/configuration.html#options-config-objects),
+4. Enhanced Configuration Management. This is particularly relevant to a distributed environment,
+5. Transactional update of settings for whole of environment,
+6. Common settings can be shared among many applications. Support for single point of change,
+7. In a complex system with many related applications or services it's not uncommon to have many configuration files. By persisting settings to a database, the dependency on these configuration files can be reduced,
+8. All settings for a select criteria, such as environment, application or section can be retrieved with a single query,
+8. Allow end users to update settings via the EntityFramework Context. 
 
 # Compatibility
 
