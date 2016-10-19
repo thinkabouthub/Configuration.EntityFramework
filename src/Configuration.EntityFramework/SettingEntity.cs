@@ -31,7 +31,7 @@ namespace Configuration.EntityFramework
             return (T)Convert.ChangeType(this.GetValue(typeof(T)), typeof(T));
         }
 
-        protected virtual object GetValue(Type type)
+        public virtual object GetValue(Type type)
         {
             if ((_value == null) && !string.IsNullOrEmpty(this.Json))
             {
