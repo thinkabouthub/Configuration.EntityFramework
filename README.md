@@ -20,7 +20,7 @@ Configuration.EntityFramework is a custom configuration provider for the [.NET C
 <a href="https://www.myget.org/"><img src="https://www.myget.org/BuildSource/Badge/configuration-entityframework?identifier=915f4809-89a9-4512-8f0f-044d3ed0b017" alt="configuration-entityframework MyGet Build Status" /></a>
 
 # So why use Configuration.EntityFramework?
-Some settings, such as a connection string or those required during the initialisation of an application may be better located in a local file rather than a repository. However, in many cases a Configuration.EntityFramework can present some distinct advantages, including;  
+Some settings, such as a connection string or those required during the initialisation of an application may be better located in a local file rather than a repository. However, in many cases Configuration.EntityFramework can present some distinct advantages, including;  
 
 1. Makes use of the .NET Core configuration provider model,
 2. Support for complex types,
