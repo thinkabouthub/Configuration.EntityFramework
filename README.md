@@ -68,7 +68,7 @@ var section = config.TryGetSection<ComplexType>("SampleSection");
 
 Get Configuration Section for complex type. Return default value if section does not exist.
 ```C# 
-var section = config.GetSection<SectionWithChild>("SampleSection");
+var section = config.GetSection<ComplexType>("SampleSection");
 ``` 
 
 Get Configuration Value for Key. 
