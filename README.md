@@ -40,7 +40,7 @@ Configuration.EntityFramework is **compatible** with **.NET Core** and **.NET 4.
 Our [Sample Project](https://github.com/thinkabouthub/Configuration.EntityFramework/tree/master/sample) demonstrates how to use Configuration.EntityFramework and gives you some starting points for learning more. Additionally, the [Getting Started](https://github.com/thinkabouthub/Configuration.EntityFramework/wiki/getting-started/) tutorial walks you through using Configuration.EntityFramework in a simple ASP.NET Core app.
 
 ## Get Packages
-You can get Configuration.EntityFramework by [grabbing the latest NuGet packages](https://www.nuget.org/packages?q=configuration.entityframework). If you're feeling adventurous, [continuous integration builds are on MyGet](https://www.myget.org/feed/configuration-entityframework/package/nuget/Configuration.EntityFramework).
+You can get Configuration.EntityFramework by [grabbing the latest NuGet package](https://www.nuget.org/packages?q=configuration.entityframework). If you're feeling adventurous, [continuous integration builds are on MyGet](https://www.myget.org/feed/configuration-entityframework/package/nuget/Configuration.EntityFramework).
 
 [Release notes](https://github.com/thinkabouthub/Configuration.EntityFramework/wiki/release-notes) are available on the wiki.
 ## Get Help
