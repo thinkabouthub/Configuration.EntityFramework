@@ -18,6 +18,8 @@
     "xmlDoc": true,
     "nowarn": [ "1591" ]
   },
+  "projectUrl": "https://github.com/thinkabouthub/Configuration.EntityFramework",
+  "description": "Configuration.EntityFramework is a custom configuration provider for the .NET Core Configuration system. It's built on EntityFrameworkCore allowing configuration settings to be stored in a wide variety of repositories",
   "packOptions": {
     "owners": [ "Patrick Nolan" ],
     "summary": "EntityFramework Configuration Provider",
