@@ -44,7 +44,7 @@ You can get Configuration.EntityFramework by [grabbing the latest NuGet package]
 
 [Release notes](https://github.com/thinkabouthub/Configuration.EntityFramework/wiki/release-notes) are available on the wiki.
 ## Get Help
-**Need help with Configuration.EntityFramework?** We're ready to answer your questions on [Stack Overflow](http://stackoverflow.com/questions/tagged/configuration.ef). Our [blog page](https://thinkabout.ghost.io/) is also a useful source of information and updates.
+**Need help with Configuration.EntityFramework?** We're ready to answer your questions on [Stack Overflow](http://stackoverflow.com/questions/tagged/configuration.ef). Alternatively ask a question [here](https://github.com/thinkabouthub/Configuration.EntityFramework/issues).
 
 ##Super-duper quick start
 
