@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace Configuration.EntityFramework.Samples
@@ -15,7 +16,8 @@ namespace Configuration.EntityFramework.Samples
             var config = new ConfigurationBuilder()
                 .SetBasePath(Environment.CurrentDirectory)
                 .AddJsonFile("appsettings.json", true, true)
-                .AddEntityFrameworkConfig("Sample").Build(); // Only load settings using EntityFramework Configuration Provider for "Sample" application
+                // Only load settings using EntityFramework Configuration Provider for "Sample" application
+                .AddEntityFrameworkConfig(builder => builder.UseSqlServer(@"Data Source=.;Initial Catalog=Configuration;Integrated Security=True")).Build(); 
 
             // Check Configuration Section Exists
             var exists = config.SectionExists("SectionWithChild");
