@@ -13,11 +13,20 @@ namespace Configuration.EntityFramework.Samples
                 .Create()
                 .Seed();
 
+            MainSample();
+            SettingsForApplicationSample();
+        }
+
+        /// <summary>
+        /// Common examples.
+        /// </summary>
+        public static void MainSample()
+        {
+            // Initial Configuration System
             var config = new ConfigurationBuilder()
                 .SetBasePath(Environment.CurrentDirectory)
                 .AddJsonFile("appsettings.json", true, true)
-                // Only load settings using EntityFramework Configuration Provider for "Sample" application
-                .AddEntityFrameworkConfig(builder => builder.UseSqlServer(@"Data Source=.;Initial Catalog=Configuration;Integrated Security=True")).Build(); 
+                .AddEntityFrameworkConfig(builder => builder.UseSqlServer(@"Data Source=.;Initial Catalog=Configuration.Samples;Integrated Security=True")).Build();
 
             // Check Configuration Section Exists
             var exists = config.SectionExists("SectionWithChild");
@@ -33,6 +42,21 @@ namespace Configuration.EntityFramework.Samples
 
             // Get Configuration Value for Key. 
             var test4 = config.GetValue<string>("TestSetting");
+        }
+
+        /// <summary>
+        /// Retrieve settings for application only.
+        /// </summary>
+        public static void SettingsForApplicationSample()
+        {
+            // Initial Configuration System
+            var config = new ConfigurationBuilder()
+                .SetBasePath(Environment.CurrentDirectory)
+                .AddJsonFile("appsettings.json", true, true)
+                // Only load settings using EntityFramework Configuration Provider for "SampleApplication" application
+                .AddEntityFrameworkConfig("SampleApplication", builder => builder.UseSqlServer(@"Data Source=.;Initial Catalog=Configuration.Samples;Integrated Security=True")).Build();
+
+            var test = config.GetValue<string>("TestSetting");
         }
     }
 }

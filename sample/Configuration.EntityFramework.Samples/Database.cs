@@ -27,7 +27,7 @@ namespace Configuration.EntityFramework.Samples
         {
             using (var context = new ConfigurationContext())
             {
-                var section = new SectionEntity() { ApplicationName = "Sample", SectionName = "appSettings" };
+                var section = new SectionEntity() { ApplicationName = "SampleApplication", SectionName = "appSettings" };
                 context.Sections.Add(section);
                 context.SaveChanges();
 
@@ -53,7 +53,7 @@ namespace Configuration.EntityFramework.Samples
                     }
                 };
 
-                var section = new SectionEntity() { ApplicationName = "Sample", SectionName = "SectionWithChild" };
+                var section = new SectionEntity() { ApplicationName = "SampleApplication", SectionName = "SectionWithChild" };
                 context.Sections.Add(section);
                 context.SaveChanges();
 
@@ -93,7 +93,7 @@ namespace Configuration.EntityFramework.Samples
                     }
                 );
 
-                var section = new SectionEntity() { ApplicationName = "Sample", SectionName = "SectionWithChildren" };
+                var section = new SectionEntity() { ApplicationName = "SampleApplication", SectionName = "SectionWithChildren" };
                 context.Sections.Add(section);
                 context.SaveChanges();
 
