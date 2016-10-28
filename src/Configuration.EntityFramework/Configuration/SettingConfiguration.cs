@@ -7,18 +7,29 @@ namespace Configuration.EntityFramework
     {
         public override void Map(EntityTypeBuilder<SettingEntity> b)
         {
-            b.HasIndex(i => new { i.SectionId, i.Key }).HasName("IX_Setting_SectionId_Key").IsUnique();
+            b.ToTable("Setting", "Configuration");
 
-            b.Property(p => p.Key).HasMaxLength(50);
-            b.Property(p => p.ModifiedUser).HasMaxLength(50);
+            b.HasIndex(e => e.SectionId)
+                .HasName("IX_Setting_SectionId");
 
-            b.ToTable("Setting", "Configuration").HasKey(p => p.Id);
+            b.HasIndex(e => new { e.SectionId, e.Key })
+                .HasName("IX_Setting_SectionId_Key")
+                .IsUnique();
 
-            //b.HasKey(e => new { e.Id, e.SectionId });
-            b.Property(e => e.Json).HasColumnName("Value");
-            b.Property(p => p.Timestamp)
-                .ValueGeneratedOnAddOrUpdate()
-                .IsConcurrencyToken();
+            b.Property(e => e.Key)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            b.Property(e => e.ModifiedUser).HasMaxLength(50);
+
+            b.Property(e => e.Timestamp)
+                .IsRequired()
+                .HasColumnType("timestamp")
+                .ValueGeneratedOnAddOrUpdate();
+
+            b.HasOne(d => d.Section)
+                .WithMany(p => p.Settings)
+                .HasForeignKey(d => d.SectionId);
         }
     }
 }
