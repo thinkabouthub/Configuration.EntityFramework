@@ -54,7 +54,7 @@ namespace Configuration.EntityFramework.Samples
                 .SetBasePath(Environment.CurrentDirectory)
                 .AddJsonFile("appsettings.json", true, true)
                 // Only load settings using EntityFramework Configuration Provider for "SampleApplication" application
-                .AddEntityFrameworkConfig("SampleApplication", builder => builder.UseSqlServer(@"Data Source=.;Initial Catalog=Configuration.Samples;Integrated Security=True")).Build();
+                .AddEntityFrameworkConfig(builder => builder.UseSqlServer(@"Data Source=.;Initial Catalog=Configuration.Samples;Integrated Security=True"), "SampleApplication").Build();
 
             var test = config.GetValue<string>("TestSetting");
         }

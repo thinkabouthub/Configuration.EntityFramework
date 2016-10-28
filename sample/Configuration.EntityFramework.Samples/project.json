@@ -1,11 +1,11 @@
-﻿{
+{
   "version": "1.0.0-*",
   "buildOptions": {
     "emitEntryPoint": true
   },
 
   "dependencies": {
-    "Configuration.EntityFramework": "1.0.1.10"
+    "Configuration.EntityFramework": "1.0.1.29"
   },
 
   "frameworks": {
