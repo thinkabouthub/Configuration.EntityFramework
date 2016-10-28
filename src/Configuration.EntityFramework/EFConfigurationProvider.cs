@@ -10,7 +10,7 @@ namespace Configuration.EntityFramework
 {
     public class EFConfigurationProvider : ConfigurationProvider
     {
-        public EFConfigurationProvider(Action<DbContextOptionsBuilder> optionsAction, string application = null, string aspect = null, bool ensureCreated = false)
+        public EFConfigurationProvider(Action<DbContextOptionsBuilder> optionsAction, string application = null, string aspect = "settings", bool ensureCreated = false)
         {
             this.OptionsAction = optionsAction;
             this.Application = application;
@@ -18,7 +18,7 @@ namespace Configuration.EntityFramework
             this.EnsureCreated = ensureCreated;
         }
 
-        public EFConfigurationProvider(ConfigurationContext context, string application = null, string aspect = null, bool ensureCreated = false)
+        public EFConfigurationProvider(ConfigurationContext context, string application = null, string aspect = "settings", bool ensureCreated = false)
         {
             this.Context = context;
             this.Application = application;

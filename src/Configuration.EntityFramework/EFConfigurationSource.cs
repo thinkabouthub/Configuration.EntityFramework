@@ -16,14 +16,14 @@ namespace Configuration.EntityFramework
 
         protected virtual bool EnsureCreated { get; set; }
 
-        public EFConfigurationSource(string application, string aspect, bool ensureCreated = false)
+        public EFConfigurationSource(string application, string aspect = "settings", bool ensureCreated = false)
         {
             this.Application = application;
             this.Aspect = aspect;
             this.EnsureCreated = ensureCreated;
         }
 
-        public EFConfigurationSource(Action<DbContextOptionsBuilder> options, string application = null, string aspect = null, bool ensureCreated = false)
+        public EFConfigurationSource(Action<DbContextOptionsBuilder> options, string application = null, string aspect = "settings", bool ensureCreated = false)
         {
             this.OptionsAction = options;
             this.Application = application;
@@ -31,7 +31,7 @@ namespace Configuration.EntityFramework
             this.EnsureCreated = ensureCreated;
         }
 
-        public EFConfigurationSource(ConfigurationContext context, string application = null, string aspect = null, bool ensureCreated = false)
+        public EFConfigurationSource(ConfigurationContext context, string application = null, string aspect = "settings", bool ensureCreated = false)
         {
             this.Context = context;
             this.Application = application;
