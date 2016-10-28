@@ -10,21 +10,25 @@ namespace Configuration.EntityFramework
 {
     public class EFConfigurationProvider : ConfigurationProvider
     {
-        protected string Application;
-
-        public EFConfigurationProvider(string application, Action<DbContextOptionsBuilder> optionsAction, bool ensureCreated = false)
+        public EFConfigurationProvider(Action<DbContextOptionsBuilder> optionsAction, string application = null, string aspect = null, bool ensureCreated = false)
         {
-            this.Application = application;
             this.OptionsAction = optionsAction;
+            this.Application = application;
+            this.Aspect = aspect;
             this.EnsureCreated = ensureCreated;
         }
 
-        public EFConfigurationProvider(string application, ConfigurationContext context, bool ensureCreated = false)
+        public EFConfigurationProvider(ConfigurationContext context, string application = null, string aspect = null, bool ensureCreated = false)
         {
-            this.Application = application;
             this.Context = context;
+            this.Application = application;
+            this.Aspect = aspect;
             this.EnsureCreated = ensureCreated;
         }
+
+        protected virtual string Application { get; set; }
+
+        protected virtual string Aspect { get; set; }
 
         protected virtual Action<DbContextOptionsBuilder> OptionsAction { get; set; }
 
@@ -54,7 +58,10 @@ namespace Configuration.EntityFramework
             }
             try
             {
-                foreach (var section in this.Context.Sections.Where(s => string.IsNullOrEmpty(Application) || (s.ApplicationName == Application)).Include(s => s.Settings))
+                foreach (var section in this.Context.Sections.Where(s => 
+                            string.IsNullOrEmpty(this.Application) || (s.ApplicationName == this.Application)
+                            && string.IsNullOrEmpty(this.Aspect) || (s.Aspect == this.Aspect))
+                            .Include(s => s.Settings))
                 {
                     foreach (var setting in section.Settings)
                     {

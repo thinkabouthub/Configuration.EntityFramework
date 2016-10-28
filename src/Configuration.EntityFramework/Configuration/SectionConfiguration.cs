@@ -8,19 +8,33 @@ namespace Configuration.EntityFramework
     {
         public override void Map(EntityTypeBuilder<SectionEntity> b)
         {
-            b.HasIndex(i => new { i.ApplicationName, i.SectionName }).HasName("IX_Section_ApplicationName_SectionName").IsUnique();
-           
-            b.Property(p => p.ApplicationName).HasMaxLength(50);
-            b.Property(p => p.SectionName).HasMaxLength(50);
-            b.Property(p => p.ModifiedUser).HasMaxLength(50);
+            b.ToTable("Section", "Configuration");
 
-            b.ToTable("Section", "Configuration").HasKey(p => p.Id);
+            b.HasIndex(e => new { e.ApplicationName, e.Aspect })
+                .HasName("IX_Section_ApplicationName_Aspect");
 
-            b.Ignore(e => e.Settings);
-            b.Property(p => p.Timestamp)
-                .ValueGeneratedOnAddOrUpdate()
-                .IsConcurrencyToken();
-            b.HasMany(e => e.Settings).WithOne(e => e.Section).HasForeignKey(e => e.SectionId).OnDelete(DeleteBehavior.Cascade);
+            b.HasIndex(e => new { e.ApplicationName, e.SectionName })
+                .HasName("IX_Section_ApplicationName_SectionName")
+                .IsUnique();
+
+            b.Property(e => e.ApplicationName)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            b.Property(e => e.Aspect).HasMaxLength(50);
+
+            b.Property(e => e.Modified).HasDefaultValueSql("getdate()");
+
+            b.Property(e => e.ModifiedUser).HasMaxLength(50);
+
+            b.Property(e => e.SectionName)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            b.Property(e => e.Timestamp)
+                .IsRequired()
+                .HasColumnType("timestamp")
+                .ValueGeneratedOnAddOrUpdate();
         }
     }
 }

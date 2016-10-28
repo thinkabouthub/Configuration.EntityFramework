@@ -22,7 +22,7 @@ namespace Configuration.EntityFramework.Tests
         {
             this.Fixture.ClearAll();
 
-            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "appSettings", ModifiedUser = "TestUser" };
+            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "appSettings", Aspect = "Settings", ModifiedUser = "TestUser" };
             this.Fixture.Context.Sections.Add(section);
             this.Fixture.Context.SaveChanges();
 
@@ -46,7 +46,7 @@ namespace Configuration.EntityFramework.Tests
         {
             this.Fixture.ClearAll();
 
-            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "TestSection1", ModifiedUser = "TestUser" };
+            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "TestSection1", Aspect = "Settings", ModifiedUser = "TestUser" };
             this.Fixture.Context.Sections.Add(section);
             this.Fixture.Context.SaveChanges();
 
@@ -73,7 +73,7 @@ namespace Configuration.EntityFramework.Tests
         {
             this.Fixture.ClearAll();
 
-            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "TestSection2", ModifiedUser = "TestUser" };
+            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "TestSection2", Aspect = "Settings", ModifiedUser = "TestUser" };
             this.Fixture.Context.Sections.Add(section);
             this.Fixture.Context.SaveChanges();
 
@@ -115,7 +115,7 @@ namespace Configuration.EntityFramework.Tests
         {
             this.Fixture.ClearAll();
 
-            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "TestSection3", ModifiedUser = "TestUser" };
+            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "TestSection3", Aspect = "Settings", ModifiedUser = "TestUser" };
             this.Fixture.Context.Sections.Add(section);
             this.Fixture.Context.SaveChanges();
 

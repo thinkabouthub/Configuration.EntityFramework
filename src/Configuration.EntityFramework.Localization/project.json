@@ -1,0 +1,41 @@
+﻿{
+  "version": "1.0.1-*",
+  "dependencies": {
+    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.1",
+    "Microsoft.EntityFrameworkCore.SqlServer.Design": "1.0.1",
+    "Newtonsoft.Json": "9.0.1",
+    "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
+    "Microsoft.Extensions.Configuration.Json": "1.0.0",
+    "Configuration.EntityFramework": "1.0.1-*",
+    "Microsoft.Extensions.Localization": "1.1.0-preview1-final"
+  },
+  "frameworks": {
+    "netcoreapp1.0": {
+      "“imports”": "“dnxcore50”"
+    },
+    "net462": {}
+  },
+  "buildOptions": {
+    "keyFile": "../Configuration.EntityFramework.snk",
+    "xmlDoc": true,
+    "nowarn": [ "1591" ]
+  },
+  "projectUrl": "https://github.com/thinkabouthub/Configuration.EntityFramework",
+  "description": "Configuration.EntityFramework.Localization provides custom localization components. These components leverage Configuration.EntityFramework for persistence",
+  "packOptions": {
+    "owners": [ "Patrick Nolan" ],
+    "summary": "EntityFramework Configuration Localization",
+    "releaseNotes": "Initial Release",
+    "requireLicenseAcceptance": false,
+    "tags": [ "Configuration.EntityFramework.Localization", "Localization", "EntityFramework", "c#", "dotnetcore" ],
+    "iconUrl": "https://raw.githubusercontent.com/thinkabouthub/Configuration.EntityFramework/master/configuration.entityframework_icon.png",
+    "files": {
+      "includeFiles": []
+    }
+  },
+  "scripts": {
+    "postcompile": [
+      "dotnet pack --no-build --configuration %compile:Configuration%"
+    ]
+  }
+}

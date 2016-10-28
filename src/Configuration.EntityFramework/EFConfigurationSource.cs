@@ -6,42 +6,47 @@ namespace Configuration.EntityFramework
 {
     public class EFConfigurationSource : IConfigurationSource
     {
-        private readonly Action<DbContextOptionsBuilder> _optionsAction;
+        protected virtual Action<DbContextOptionsBuilder> OptionsAction { get; set; }
 
-        private readonly ConfigurationContext _context;
+        protected virtual ConfigurationContext Context { get; set; }
 
-        private readonly string _application;
+        protected virtual string Application { get; set; }
 
-        private readonly bool _ensureCreated;
+        protected virtual string Aspect { get; set; }
+
+        protected virtual bool EnsureCreated { get; set; }
+
+        public EFConfigurationSource(string application, string aspect, bool ensureCreated = false)
+        {
+            this.Application = application;
+            this.Aspect = aspect;
+            this.EnsureCreated = ensureCreated;
+        }
+
+        public EFConfigurationSource(Action<DbContextOptionsBuilder> options, string application = null, string aspect = null, bool ensureCreated = false)
+        {
+            this.OptionsAction = options;
+            this.Application = application;
+            this.Aspect = aspect;
+            this.EnsureCreated = ensureCreated;
+        }
+
+        public EFConfigurationSource(ConfigurationContext context, string application = null, string aspect = null, bool ensureCreated = false)
+        {
+            this.Context = context;
+            this.Application = application;
+            this.Aspect = aspect;
+            this.EnsureCreated = ensureCreated;
+        }
 
         public EFConfigurationSource(bool ensureCreated = false)
         {
-            this._ensureCreated = ensureCreated;
-        }
-
-        public EFConfigurationSource(string application, bool ensureCreated = false)
-        {
-            this._application = application;
-            this._ensureCreated = ensureCreated;
-        }
-
-        public EFConfigurationSource(string application, Action<DbContextOptionsBuilder> optionsAction, bool ensureCreated = false)
-        {
-            this._application = application;
-            this._optionsAction = optionsAction;
-            this._ensureCreated = ensureCreated;
-        }
-
-        public EFConfigurationSource(string application, ConfigurationContext context, bool ensureCreated = false)
-        {
-            _application = application;
-            _context = context;
-            this._ensureCreated = ensureCreated;
+            this.EnsureCreated = ensureCreated;
         }
 
         public IConfigurationProvider Build(IConfigurationBuilder builder)
         {
-            return _context != null ? new EFConfigurationProvider(this._application, this._context, this._ensureCreated) : new EFConfigurationProvider(this._application, this._optionsAction, this._ensureCreated);
+            return this.Context != null ? new EFConfigurationProvider(this.Context, this.Application, this.Aspect, this.EnsureCreated) : new EFConfigurationProvider(this.OptionsAction, this.Application, this.Aspect, this.EnsureCreated);
         }
     }
 }

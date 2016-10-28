@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		global.json = global.json
 	EndProjectSection
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Configuration.EntityFramework.Localization", "..\src\Configuration.EntityFramework.Localization\Configuration.EntityFramework.Localization.xproj", "{2AAD8E9E-F9F2-44B6-BF1B-3152119D83DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{72A13EC6-CA1E-453D-9150-F13C20FA75A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72A13EC6-CA1E-453D-9150-F13C20FA75A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72A13EC6-CA1E-453D-9150-F13C20FA75A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2AAD8E9E-F9F2-44B6-BF1B-3152119D83DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2AAD8E9E-F9F2-44B6-BF1B-3152119D83DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2AAD8E9E-F9F2-44B6-BF1B-3152119D83DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2AAD8E9E-F9F2-44B6-BF1B-3152119D83DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

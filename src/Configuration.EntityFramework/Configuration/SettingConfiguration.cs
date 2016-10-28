@@ -20,6 +20,8 @@ namespace Configuration.EntityFramework
                 .IsRequired()
                 .HasMaxLength(50);
 
+            b.Property(e => e.Modified).HasDefaultValueSql("getdate()");
+
             b.Property(e => e.ModifiedUser).HasMaxLength(50);
 
             b.Property(e => e.Timestamp)

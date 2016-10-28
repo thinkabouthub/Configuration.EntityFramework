@@ -18,6 +18,9 @@ namespace Configuration.EntityFramework
         [MaxLength(50)]
         public virtual string SectionName { get; set; }
 
+        [MaxLength(50)]
+        public virtual string Aspect { get; set; }
+
         public virtual DateTime? Modified { get; set; }
 
         [MaxLength(50)]
