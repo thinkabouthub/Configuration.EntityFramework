@@ -3,23 +3,23 @@ using Microsoft.Extensions.Localization;
 
 namespace Configuration.EntityFramework.Localization
 {
-    public class EfStringLocalizerFactory : IStringLocalizerFactory
+    public class EFStringLocalizerFactory : IStringLocalizerFactory
     {
         private readonly ConfigurationContext Context;
 
-        public EfStringLocalizerFactory(ConfigurationContext context)
+        public EFStringLocalizerFactory(ConfigurationContext context)
         {
             this.Context = context;
         }
 
         public IStringLocalizer Create(Type resourceSource)
         {
-            return new EfStringLocalizer(this.Context);
+            return new EFStringLocalizer(this.Context);
         }
 
         public IStringLocalizer Create(string baseName, string location)
         {
-            return new EfStringLocalizer(this.Context);
+            return new EFStringLocalizer(this.Context);
         }
     }
 }

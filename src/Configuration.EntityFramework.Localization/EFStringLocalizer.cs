@@ -7,15 +7,15 @@ using Microsoft.Extensions.Localization;
 
 namespace Configuration.EntityFramework.Localization
 {
-    public class EfStringLocalizer : IStringLocalizer
+    public class EFStringLocalizer : IStringLocalizer
     {
         private readonly ConfigurationContext Context;
         private readonly string CultureName;
         private const string AspectName = "Localization";
 
-        public EfStringLocalizer(ConfigurationContext context) : this(context, CultureInfo.CurrentUICulture) { }
+        public EFStringLocalizer(ConfigurationContext context) : this(context, CultureInfo.CurrentUICulture) { }
 
-        public EfStringLocalizer(ConfigurationContext context, CultureInfo cultureInfo)
+        public EFStringLocalizer(ConfigurationContext context, CultureInfo cultureInfo)
         {
             this.Context = context;
             this.CultureName = cultureInfo.Name;
@@ -53,7 +53,7 @@ namespace Configuration.EntityFramework.Localization
 
         public virtual IStringLocalizer WithCulture(CultureInfo culture)
         {
-            return new EfStringLocalizer(this.Context, culture);
+            return new EFStringLocalizer(this.Context, culture);
         }
 
         public virtual IEnumerable<LocalizedString> GetAllStrings(bool includeAncestorCultures)
