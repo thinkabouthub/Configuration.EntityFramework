@@ -8,7 +8,7 @@ using Microsoft.Extensions.Localization;
 namespace Configuration.EntityFramework.Localization
 {
     public class EfStringLocalizer : IStringLocalizer
-{
+    {
         private readonly ConfigurationContext Context;
         private readonly string CultureName;
         private const string AspectName = "Localization";
