@@ -1,17 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Xunit;
 
 namespace Configuration.EntityFramework.Tests
 {
-    public class DbContextFixture<T> : IDisposable where T : DbContext
+    public enum DatabaseBuildOption
+    {
+        Create,
+        Migration
+    }
+
+    public class DbContextFixture : IDisposable
     {
         public virtual IConfigurationRoot Configuration { get; private set; }
-
-        public virtual T Context { get; private set; }
 
         public virtual Guid Identifier { get; private set; }
 
@@ -19,55 +26,105 @@ namespace Configuration.EntityFramework.Tests
 
         public DbContextFixture()
         {
-            this.Identifier = Guid.NewGuid();
-        }
-
-        public virtual void Initialise(string identifier = null)
-        {
-            this.InitialiseWithName("ConfigurationContext", identifier);
-        }
-
-        public virtual void InitialiseWithName(string connectionName, string identifier = null)
-        {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Environment.CurrentDirectory)
                 .AddJsonFile("appsettings.json", true, true);
             this.Configuration = builder.Build();
 
-            var optionsBuilder = new DbContextOptionsBuilder<T>();
-            var connectionBuilder = new SqlConnectionStringBuilder(this.Configuration.GetConnectionString(connectionName));
-            connectionBuilder.InitialCatalog += string.IsNullOrEmpty(identifier) ? $"_{this.Identifier}" : $"_{identifier}";
-            optionsBuilder.UseSqlServer(connectionBuilder.ConnectionString);
-            this.Initialise(optionsBuilder.Options);
+            this.Identifier = Guid.NewGuid();
+            this._context = new Collection<DbContext>();
+            this.DatabaseBuildOption = DatabaseBuildOption.Create;
         }
 
-        public virtual void InitialiseWithConnection(string connection)
+        private Collection<DbContext> _context;
+
+        public virtual DatabaseBuildOption DatabaseBuildOption { get; set; }
+
+        public virtual IEnumerable<DbContext> Context => this._context;
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public virtual void InitialiseContext<T>(string identifier = null) where T : DbContext
+        {
+            this.InitialiseContextWithName<T>(typeof(T).Name, identifier);
+        }
+
+        protected virtual Type GetDeclaringType()
+        {
+            int index = 1;
+            var type = new StackFrame(index, true).GetMethod().DeclaringType;
+            while (type != null && (type.Equals(this.GetType()) || type.Equals(this.GetType().BaseType)))
+            {
+                index++;
+                type = new StackFrame(index, true).GetMethod().DeclaringType;
+            }
+            return type;
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public virtual void InitialiseContextWithName<T>(string connectionName, string identifier = null) where T : DbContext
+        {
+            var type = this.GetDeclaringType();
+            var name = identifier ?? type?.Name;
+
+            var optionsBuilder = new DbContextOptionsBuilder<T>();
+            var connection = this.Configuration.GetConnectionString(connectionName);
+            if (string.IsNullOrEmpty(connection)) connection = this.Configuration.GetConnectionString("DefaultConnection");
+            var connectionBuilder = new SqlConnectionStringBuilder(connection);
+            connectionBuilder.InitialCatalog += string.IsNullOrEmpty(name) ? $"_{this.Identifier}" : $"_{name}";
+            optionsBuilder.UseSqlServer(connectionBuilder.ConnectionString);
+            this.InitialiseContext(optionsBuilder.Options);
+        }
+
+        public virtual void InitialiseContextWithConnection<T>(string connection) where T : DbContext
         {
             var optionsBuilder = new DbContextOptionsBuilder<T>();
             optionsBuilder.UseSqlServer(connection);
-            this.Initialise(optionsBuilder.Options);
+            this.InitialiseContext(optionsBuilder.Options);
         }
 
-        public virtual void Initialise(DbContextOptions<T> options)
+        public virtual void InitialiseContext<T>(DbContextOptions<T> options) where T : DbContext
         {
-            this.Context = (T)Activator.CreateInstance(typeof(T), options);
-            this.Context.Database.EnsureDeleted();
-            this.Context.Database.EnsureCreated();
-            this.Context.ChangeTracker.AutoDetectChangesEnabled = false;
-            this.SeedData();
+            if (!this.Context.Any(c => c is T))
+            {
+                var context = (T)Activator.CreateInstance(typeof(T), options);
+                context.Database.EnsureDeleted();
+                if (this.DatabaseBuildOption == DatabaseBuildOption.Migration)
+                {
+                    context.Database.Migrate();
+                }
+                else if (this.DatabaseBuildOption == DatabaseBuildOption.Create)
+                {
+                    context.Database.EnsureCreated();
+                }
+                context.ChangeTracker.AutoDetectChangesEnabled = false;
+                this._context.Add(context);
+            }
         }
 
-        public virtual void SeedData()
+        public virtual T GetContext<T>(bool clearChangeTracker = true) where T : DbContext
         {
-            
+            var context = this.Context.OfType<T>().FirstOrDefault();
+            if (context != null && clearChangeTracker)
+            {
+                this.ClearChangeTracker(context);
+            }
+            return context;
         }
 
-        public virtual void ClearAll()
+        public virtual void ClearChangeTracker(DbContext context)
         {
-            var entries = this.Context.ChangeTracker.Entries();
+            var entries = context.ChangeTracker.Entries();
             while (entries.Any())
             {
                 entries.First().State = EntityState.Detached;
+            }
+        }
+
+        public virtual void ClearChangeTracker()
+        {
+            foreach (var context in this.Context)
+            {
+                this.ClearChangeTracker(context);
             }
         }
 
@@ -83,12 +140,13 @@ namespace Configuration.EntityFramework.Tests
 
             if (disposing)
             {
-                if (this.Context != null)
+                while (this.Context.Any())
                 {
-                    this.Context.Database.EnsureDeleted();
-                    this.Context.Dispose();
-                    this.Context = null;
+                    var context = this.Context.First();
+                    context.Database.EnsureDeleted();
+                    context.Dispose();
                 }
+
             }
             disposed = true;
         }

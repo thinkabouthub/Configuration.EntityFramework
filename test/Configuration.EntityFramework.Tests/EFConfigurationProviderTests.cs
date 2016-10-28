@@ -7,34 +7,34 @@ using Xunit;
 
 namespace Configuration.EntityFramework.Tests
 {
-    public class EFConfigurationProviderTests : IClassFixture<DbContextFixture<ConfigurationContext>>
+    public class EFConfigurationProviderTests : IClassFixture<DbContextFixture>
     {
-        protected virtual DbContextFixture<ConfigurationContext> Fixture { get; private set; }
+        protected virtual DbContextFixture Fixture { get; private set; }
 
-        public EFConfigurationProviderTests(DbContextFixture<ConfigurationContext> fixture)
+        public EFConfigurationProviderTests(DbContextFixture fixture)
         {
-            fixture.Initialise(this.GetType().Name);
+            fixture.InitialiseContext<ConfigurationContext>();
             this.Fixture = fixture;
         }
 
         [Fact]
         public void Given_BasicTypeSetting_When_IsValid_Then_SettingRetrieved()
         {
-            this.Fixture.ClearAll();
+            var context = this.Fixture.GetContext<ConfigurationContext>();
 
             var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "appSettings", Aspect = "Settings", ModifiedUser = "TestUser" };
-            this.Fixture.Context.Sections.Add(section);
-            this.Fixture.Context.SaveChanges();
+            context.Sections.Add(section);
+            context.SaveChanges();
 
             var setting = new SettingEntity() { SectionId = section.Id, Key = "TestSetting", Json = @"""Test Value""", ModifiedUser = "TestUser" };
             setting.ValueType = null;
 
-            this.Fixture.Context.Settings.Add(setting);
-            this.Fixture.Context.SaveChanges();
+            context.Settings.Add(setting);
+            context.SaveChanges();
 
-            this.Fixture.ClearAll();
+            this.Fixture.ClearChangeTracker();
 
-            var builder = new ConfigurationBuilder().AddEntityFrameworkConfig(this.Fixture.Context);
+            var builder = new ConfigurationBuilder().AddEntityFrameworkConfig(context);
             var configuration = builder.Build();
 
             var value = configuration.GetValue<string>("TestSetting");
@@ -44,22 +44,22 @@ namespace Configuration.EntityFramework.Tests
         [Fact]
         public void Given_ComplexTypeSection_When_IsValid_Then_SectionRetrieved()
         {
-            this.Fixture.ClearAll();
+            var context = this.Fixture.GetContext<ConfigurationContext>();
 
             var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "TestSection1", Aspect = "Settings", ModifiedUser = "TestUser" };
-            this.Fixture.Context.Sections.Add(section);
-            this.Fixture.Context.SaveChanges();
+            context.Sections.Add(section);
+            context.SaveChanges();
 
             var setting = new SettingEntity() { SectionId = section.Id, Key = "default", ModifiedUser = "TestUser" };
             setting.SetValue(new TestSectionWithChild() {Id = Guid.NewGuid(), Name = "Test"});
             var value = setting.GetValue<TestSectionWithChild>();
 
-            this.Fixture.Context.Settings.Add(setting);
-            this.Fixture.Context.SaveChanges();
+            context.Settings.Add(setting);
+            context.SaveChanges();
 
-            this.Fixture.ClearAll();
+            this.Fixture.ClearChangeTracker();
 
-            var builder = new ConfigurationBuilder().AddEntityFrameworkConfig(this.Fixture.Context);
+            var builder = new ConfigurationBuilder().AddEntityFrameworkConfig(context);
             var configuration = builder.Build();
 
             var configSection = configuration.GetSection<TestSectionWithChild>("TestSection1", false);
@@ -71,11 +71,11 @@ namespace Configuration.EntityFramework.Tests
         [Fact]
         public void Given_ComplexTypeSectionWithChild_When_IsValid_Then_SectionRetrieved()
         {
-            this.Fixture.ClearAll();
+            var context = this.Fixture.GetContext<ConfigurationContext>();
 
             var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "TestSection2", Aspect = "Settings", ModifiedUser = "TestUser" };
-            this.Fixture.Context.Sections.Add(section);
-            this.Fixture.Context.SaveChanges();
+            context.Sections.Add(section);
+            context.SaveChanges();
 
             var setting = new SettingEntity()
             {
@@ -95,12 +95,12 @@ namespace Configuration.EntityFramework.Tests
             });
             var value = setting.GetValue<TestSectionWithChild>().ChildSection;
 
-            this.Fixture.Context.Settings.Add(setting);
-            this.Fixture.Context.SaveChanges();
+            context.Settings.Add(setting);
+            context.SaveChanges();
 
-            this.Fixture.ClearAll();
+            this.Fixture.ClearChangeTracker();
 
-            var builder = new ConfigurationBuilder().AddEntityFrameworkConfig(this.Fixture.Context);
+            var builder = new ConfigurationBuilder().AddEntityFrameworkConfig(context);
             var configuration = builder.Build();
 
             var configSection = configuration.GetSection<TestSectionWithChild>("TestSection2", false);
@@ -113,11 +113,11 @@ namespace Configuration.EntityFramework.Tests
         [Fact]
         public void Given_ComplexTypeSectionWithChildren_When_IsValid_Then_SectionRetrieved()
         {
-            this.Fixture.ClearAll();
+            var context = this.Fixture.GetContext<ConfigurationContext>();
 
             var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "TestSection3", Aspect = "Settings", ModifiedUser = "TestUser" };
-            this.Fixture.Context.Sections.Add(section);
-            this.Fixture.Context.SaveChanges();
+            context.Sections.Add(section);
+            context.SaveChanges();
 
             var value = new TestSectionWithChildren()
             {
@@ -141,12 +141,12 @@ namespace Configuration.EntityFramework.Tests
                 ModifiedUser = "TestUser"
             };
             setting.SetValue(value);
-            this.Fixture.Context.Settings.Add(setting);
-            this.Fixture.Context.SaveChanges();
+            context.Settings.Add(setting);
+            context.SaveChanges();
 
-            this.Fixture.ClearAll();
+            this.Fixture.ClearChangeTracker();
 
-            var builder = new ConfigurationBuilder().AddEntityFrameworkConfig(this.Fixture.Context);
+            var builder = new ConfigurationBuilder().AddEntityFrameworkConfig(context);
             var configuration = builder.Build();
 
             var configSection = configuration.GetSection<TestSectionWithChildren>("TestSection3", false);
