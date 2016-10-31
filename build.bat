@@ -24,12 +24,6 @@ REM - Option 2: Let msbuild handle things and build the solution
 REM call dotnet build --configuration %config%
 if not "%errorlevel%"=="0" goto failure
 
-REM Unit tests
-cd test\Configuration.EntityFramework.Tests
-call dotnet test  --configuration %config%
-not "%errorlevel%"=="0" goto failure
-
-
 :success
 exit 0
 
