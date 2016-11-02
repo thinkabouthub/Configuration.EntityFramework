@@ -12,9 +12,9 @@ namespace Configuration.EntityFramework.Samples
                 .Create()
                 .Seed();
 
-            //MainSample();
+            MainSample();
             //SettingsForApplicationSample();
-            SettingsWithDiscriminatorSample();
+            //SettingsWithDiscriminatorSample();
         }
 
         /// <summary>
