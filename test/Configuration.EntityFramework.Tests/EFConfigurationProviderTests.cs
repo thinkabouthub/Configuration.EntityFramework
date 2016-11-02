@@ -34,7 +34,7 @@ namespace Configuration.EntityFramework.Tests
 
             this.Fixture.ClearChangeTracker();
 
-            var builder = new ConfigurationBuilder().AddEntityFrameworkConfig(context, "EFConfigurationProviderTests");
+            var builder = new ConfigurationBuilder().AddEntityFrameworkConfig(context, "EFConfigurationProviderTests", null, "settings");
             var configuration = builder.Build();
 
             var value = configuration.GetValue<string>("TestSetting");
@@ -58,7 +58,7 @@ namespace Configuration.EntityFramework.Tests
 
             this.Fixture.ClearChangeTracker();
 
-            var builder = new ConfigurationBuilder().AddEntityFrameworkConfig(context, "EFConfigurationProviderTests", "settings", @"{""Username"":""Patrick""}");
+            var builder = new ConfigurationBuilder().AddEntityFrameworkConfig(context, "EFConfigurationProviderTests", @"{""Username"":""Patrick""}");
             var configuration = builder.Build();
 
             var value = configuration.GetValue<string>("TestSetting1");
@@ -82,7 +82,7 @@ namespace Configuration.EntityFramework.Tests
 
             this.Fixture.ClearChangeTracker();
 
-            var builder = new ConfigurationBuilder().AddEntityFrameworkConfig(context, "EFConfigurationProviderTests", "settings", @"{""Environment"":""Testing"", ""Username"":""Patrick""}");
+            var builder = new ConfigurationBuilder().AddEntityFrameworkConfig(context, "EFConfigurationProviderTests", @"{""Environment"":""Testing"", ""Username"":""Patrick""}");
             var configuration = builder.Build();
 
             var value = configuration.GetValue<string>("TestSetting2");
@@ -106,7 +106,7 @@ namespace Configuration.EntityFramework.Tests
 
             this.Fixture.ClearChangeTracker();
 
-            var builder = new ConfigurationBuilder().AddEntityFrameworkConfig(context, "EFConfigurationProviderTests", "settings", @"{""Environment"":""Testing"", ""Username"":""Patrick1""}");
+            var builder = new ConfigurationBuilder().AddEntityFrameworkConfig(context, "EFConfigurationProviderTests", @"{""Environment"":""Testing"", ""Username"":""Patrick1""}");
             var configuration = builder.Build();
 
             var value = configuration.GetValue<string>("TestSetting3");
@@ -130,7 +130,7 @@ namespace Configuration.EntityFramework.Tests
 
             this.Fixture.ClearChangeTracker();
 
-            var builder = new ConfigurationBuilder().AddEntityFrameworkConfig(context, "EFConfigurationProviderTests", "settings", @"{""Environment"":""Testing"", ""Username"":""Patrick""}");
+            var builder = new ConfigurationBuilder().AddEntityFrameworkConfig(context, "EFConfigurationProviderTests", @"{""Environment"":""Testing"", ""Username"":""Patrick""}");
             var configuration = builder.Build();
 
             var value = configuration.GetValue<string>("TestSetting4");
@@ -165,7 +165,7 @@ namespace Configuration.EntityFramework.Tests
 
             var builder = new ConfigurationBuilder()
                 .AddEntityFrameworkConfig(context, "EFConfigurationProviderTests")
-                .AddEntityFrameworkConfig(context, "EFConfigurationProviderTests", "settings", @"{""Username"":""Patrick""}");
+                .AddEntityFrameworkConfig(context, "EFConfigurationProviderTests", @"{""Username"":""Patrick""}");
             var configuration = builder.Build();
 
             var value = configuration.GetValue<string>("TestSetting6");

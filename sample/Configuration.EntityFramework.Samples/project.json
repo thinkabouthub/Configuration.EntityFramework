@@ -5,7 +5,7 @@
   },
 
   "dependencies": {
-    "Configuration.EntityFramework": "1.0.1.29"
+    "Configuration.EntityFramework": "1.0.1.40"
   },
 
   "frameworks": {

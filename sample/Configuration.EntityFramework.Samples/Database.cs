@@ -23,6 +23,21 @@ namespace Configuration.EntityFramework.Samples
             return this;
         }
 
+        public Database SeedAppSettingWithDescriminator()
+        {
+            using (var context = new ConfigurationContext())
+            {
+                var section = new SectionEntity() { ApplicationName = "SampleApplication", SectionName = "appSettings", Aspect = "settings", Descriminator = @"{""Environment"":""Testing"", ""Username"":""Patrick""}" };
+                context.Sections.Add(section);
+                context.SaveChanges();
+
+                var setting = new SettingEntity() { SectionId = section.Id, Key = "UserTestSetting", Json = @"""User Test Value""" };
+                context.Settings.Add(setting);
+                context.SaveChanges();
+            }
+            return this;
+        }
+
         public Database SeedAppSetting()
         {
             using (var context = new ConfigurationContext())

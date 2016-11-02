@@ -12,21 +12,21 @@ namespace Configuration.EntityFramework
 {
     public class EFConfigurationProvider : ConfigurationProvider
     {
-        public EFConfigurationProvider(Action<DbContextOptionsBuilder> optionsAction, string application = null, string aspect = "settings", string descriminator = null, bool ensureCreated = false)
+        public EFConfigurationProvider(Action<DbContextOptionsBuilder> optionsAction, string application = null, string descriminator = null, string aspect = "settings", bool ensureCreated = false)
         {
             this.OptionsAction = optionsAction;
             this.Application = application;
-            this.Aspect = aspect;
             this.Descriminator = descriminator;
+            this.Aspect = aspect;
             this.EnsureCreated = ensureCreated;
         }
 
-        public EFConfigurationProvider(ConfigurationContext context, string application = null, string aspect = "settings", string descriminator = null, bool ensureCreated = false)
+        public EFConfigurationProvider(ConfigurationContext context, string application = null, string descriminator = null, string aspect = "settings", bool ensureCreated = false)
         {
             this.Context = context;
             this.Application = application;
-            this.Aspect = aspect;
             this.Descriminator = descriminator;
+            this.Aspect = aspect;
             this.EnsureCreated = ensureCreated;
         }
 

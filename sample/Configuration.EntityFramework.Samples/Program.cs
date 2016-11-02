@@ -13,8 +13,9 @@ namespace Configuration.EntityFramework.Samples
                 .Create()
                 .Seed();
 
-            MainSample();
-            SettingsForApplicationSample();
+            //MainSample();
+            //SettingsForApplicationSample();
+            SettingsWithDescriminatorSample();
         }
 
         /// <summary>
@@ -57,6 +58,21 @@ namespace Configuration.EntityFramework.Samples
                 .AddEntityFrameworkConfig(builder => builder.UseSqlServer(@"Data Source=.;Initial Catalog=Configuration.Samples;Integrated Security=True"), "SampleApplication").Build();
 
             var test = config.GetValue<string>("TestSetting");
+        }
+
+        /// <summary>
+        /// Retrieve settings filtered by descriminator.
+        /// </summary>
+        public static void SettingsWithDescriminatorSample()
+        {
+            // Initial Configuration System
+            var config = new ConfigurationBuilder()
+                .SetBasePath(Environment.CurrentDirectory)
+                .AddJsonFile("appsettings.json", true, true)
+                // Only load settings for user "Patrick"
+                .AddEntityFrameworkConfig(builder => builder.UseSqlServer(@"Data Source=.;Initial Catalog=Configuration.Samples;Integrated Security=True"), "SampleApplication", "settings", @"{""Username"":""Patrick""}").Build();
+
+            var test = config.GetValue<string>("UserTestSetting");
         }
     }
 }

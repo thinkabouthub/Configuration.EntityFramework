@@ -18,29 +18,29 @@ namespace Configuration.EntityFramework
 
         protected virtual bool EnsureCreated { get; set; }
 
-        public EFConfigurationSource(string application, string aspect = "settings", string descriminator = null, bool ensureCreated = false)
+        public EFConfigurationSource(string application, string descriminator = null, string aspect = "settings", bool ensureCreated = false)
         {
             this.Application = application;
-            this.Aspect = aspect;
             this.Descriminator = descriminator;
+            this.Aspect = aspect;
             this.EnsureCreated = ensureCreated;
         }
 
-        public EFConfigurationSource(Action<DbContextOptionsBuilder> options, string application = null, string aspect = "settings", string descriminator = null, bool ensureCreated = false)
+        public EFConfigurationSource(Action<DbContextOptionsBuilder> options, string application = null, string descriminator = null, string aspect = "settings", bool ensureCreated = false)
         {
             this.OptionsAction = options;
             this.Application = application;
-            this.Aspect = aspect;
             this.Descriminator = descriminator;
+            this.Aspect = aspect;
             this.EnsureCreated = ensureCreated;
         }
 
-        public EFConfigurationSource(ConfigurationContext context, string application = null, string aspect = "settings", string descriminator = null, bool ensureCreated = false)
+        public EFConfigurationSource(ConfigurationContext context, string application = null, string descriminator = null, string aspect = "settings", bool ensureCreated = false)
         {
             this.Context = context;
             this.Application = application;
-            this.Aspect = aspect;
             this.Descriminator = descriminator;
+            this.Aspect = aspect;
             this.EnsureCreated = ensureCreated;
         }
 
@@ -52,7 +52,7 @@ namespace Configuration.EntityFramework
 
         public IConfigurationProvider Build(IConfigurationBuilder builder)
         {
-            return this.Context != null ? new EFConfigurationProvider(this.Context, this.Application, this.Aspect, this.Descriminator, this.EnsureCreated) : new EFConfigurationProvider(this.OptionsAction, this.Application, this.Aspect,  this.Descriminator, this.EnsureCreated);
+            return this.Context != null ? new EFConfigurationProvider(this.Context, this.Application, this.Descriminator, this.Aspect, this.EnsureCreated) : new EFConfigurationProvider(this.OptionsAction, this.Application, this.Aspect,  this.Descriminator, this.EnsureCreated);
         }
     }
 }
