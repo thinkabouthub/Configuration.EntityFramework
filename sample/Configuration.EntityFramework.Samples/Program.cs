@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 
 namespace Configuration.EntityFramework.Samples
 {
