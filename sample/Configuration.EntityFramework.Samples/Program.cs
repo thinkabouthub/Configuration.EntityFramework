@@ -15,9 +15,9 @@ namespace Configuration.EntityFramework.Samples
                 .Create()
                 .Seed();
 
-            //MainSample();
+            MainSample();
             //SettingsForApplicationSample();
-            SettingsWithDiscriminatorSample();
+            //SettingsWithDiscriminatorSample();
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace Configuration.EntityFramework.Samples
             var config = new ConfigurationBuilder()
                 .SetBasePath(Environment.CurrentDirectory)
                 .AddJsonFile("appsettings.json", true, true)
-                .AddEntityFrameworkConfig(builder => builder.UseSqlServer(@"Data Source=.;Initial Catalog=Configuration.Samples;Integrated Security=True")).Build();
+                .AddEntityFrameworkConfig().Build();
 
             // Check Configuration Section Exists
             var exists = config.SectionExists("SectionWithChild");
@@ -57,7 +57,7 @@ namespace Configuration.EntityFramework.Samples
                 .SetBasePath(Environment.CurrentDirectory)
                 .AddJsonFile("appsettings.json", true, true)
                 // Only load settings using EntityFramework Configuration Provider for "SampleApplication" application
-                .AddEntityFrameworkConfig(builder => builder.UseSqlServer(@"Data Source=.;Initial Catalog=Configuration.Samples;Integrated Security=True"), "SampleApplication").Build();
+                .AddEntityFrameworkConfig("SampleApplication").Build();
 
             var test = config.GetValue<string>("TestSetting");
         }
@@ -72,7 +72,7 @@ namespace Configuration.EntityFramework.Samples
                 .SetBasePath(Environment.CurrentDirectory)
                 .AddJsonFile("appsettings.json", true, true)
                 // Only load settings for user "Patrick"
-                .AddEntityFrameworkConfig(builder => builder.UseSqlServer(@"Data Source=.;Initial Catalog=Configuration.Samples;Integrated Security=True"), "SampleApplication", @"{""Username"":""Patrick""}").Build();
+                .AddEntityFrameworkConfig("SampleApplication", @"{""Username"":""Patrick""}").Build();
 
             var test = config.GetValue<string>("UserTestSetting");
         }

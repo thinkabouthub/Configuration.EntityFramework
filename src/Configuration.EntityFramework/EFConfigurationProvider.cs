@@ -66,8 +66,7 @@ namespace Configuration.EntityFramework
             {
                 var sections = this.Context.Sections.Where(s =>
                         string.IsNullOrEmpty(this.Application) || (s.ApplicationName == this.Application)
-                        && string.IsNullOrEmpty(this.Aspect) || (s.Aspect == this.Aspect)
-                        && s.Discriminator == this.Discriminator)
+                        && string.IsNullOrEmpty(this.Aspect) || (s.Aspect == this.Aspect))
                     .Include(s => s.Settings);
 
                 var filtered = this.FilterSectionsByDescriminator(sections, this.Discriminator);
