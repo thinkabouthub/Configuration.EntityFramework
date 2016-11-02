@@ -18,6 +18,8 @@ namespace Configuration.EntityFramework
         [MaxLength(50)]
         public virtual string SectionName { get; set; }
 
+        public virtual string Descriminator { get; set; }
+
         [MaxLength(50)]
         public virtual string Aspect { get; set; }
 

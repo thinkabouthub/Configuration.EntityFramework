@@ -22,7 +22,7 @@ namespace Configuration.EntityFramework.Tests
         {
             var context = this.Fixture.GetContext<ConfigurationContext>();
 
-            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "appSettings", Aspect = "Settings", ModifiedUser = "TestUser" };
+            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "appSettings", Aspect = "settings", ModifiedUser = "TestUser" };
             context.Sections.Add(section);
             context.SaveChanges();
 
@@ -34,10 +34,141 @@ namespace Configuration.EntityFramework.Tests
 
             this.Fixture.ClearChangeTracker();
 
-            var builder = new ConfigurationBuilder().AddEntityFrameworkConfig(context);
+            var builder = new ConfigurationBuilder().AddEntityFrameworkConfig(context, "EFConfigurationProviderTests");
             var configuration = builder.Build();
 
             var value = configuration.GetValue<string>("TestSetting");
+            Assert.True(value == "Test Value");
+        }
+
+        [Fact]
+        public void Given_BasicTypeSettingWithDescriminator_When_DescriminatorIsValid_Then_SettingRetrieved()
+        {
+            var context = this.Fixture.GetContext<ConfigurationContext>();
+
+            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "appSettings1", Aspect = "settings", Descriminator = @"{""Username"":""Patrick""}", ModifiedUser = "TestUser" };
+            context.Sections.Add(section);
+            context.SaveChanges();
+
+            var setting = new SettingEntity() { SectionId = section.Id, Key = "TestSetting1", Json = @"""Test Value""", ModifiedUser = "TestUser" };
+            setting.ValueType = null;
+
+            context.Settings.Add(setting);
+            context.SaveChanges();
+
+            this.Fixture.ClearChangeTracker();
+
+            var builder = new ConfigurationBuilder().AddEntityFrameworkConfig(context, "EFConfigurationProviderTests", "settings", @"{""Username"":""Patrick""}");
+            var configuration = builder.Build();
+
+            var value = configuration.GetValue<string>("TestSetting1");
+            Assert.True(value == "Test Value");
+        }
+
+        [Fact]
+        public void Given_BasicTypeSettingWithDescriminator_When_MultiDescriminatorIsValid_Then_SettingRetrieved()
+        {
+            var context = this.Fixture.GetContext<ConfigurationContext>();
+
+            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "appSettings2", Aspect = "settings", Descriminator = @"{""Environment"":""Testing"", ""Username"":""Patrick""}", ModifiedUser = "TestUser" };
+            context.Sections.Add(section);
+            context.SaveChanges();
+
+            var setting = new SettingEntity() { SectionId = section.Id, Key = "TestSetting2", Json = @"""Test Value""", ModifiedUser = "TestUser" };
+            setting.ValueType = null;
+
+            context.Settings.Add(setting);
+            context.SaveChanges();
+
+            this.Fixture.ClearChangeTracker();
+
+            var builder = new ConfigurationBuilder().AddEntityFrameworkConfig(context, "EFConfigurationProviderTests", "settings", @"{""Environment"":""Testing"", ""Username"":""Patrick""}");
+            var configuration = builder.Build();
+
+            var value = configuration.GetValue<string>("TestSetting2");
+            Assert.True(value == "Test Value");
+        }
+
+        [Fact]
+        public void Given_BasicTypeSettingWithDescriminator_When_MultiDescriminatorValueInValid_Then_SettingNotRetrieved()
+        {
+            var context = this.Fixture.GetContext<ConfigurationContext>();
+
+            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "appSettings3", Aspect = "settings", Descriminator = @"{""Environment"":""Testing"", ""Username"":""Patrick""}", ModifiedUser = "TestUser" };
+            context.Sections.Add(section);
+            context.SaveChanges();
+
+            var setting = new SettingEntity() { SectionId = section.Id, Key = "TestSetting3", Json = @"""Test Value""", ModifiedUser = "TestUser" };
+            setting.ValueType = null;
+
+            context.Settings.Add(setting);
+            context.SaveChanges();
+
+            this.Fixture.ClearChangeTracker();
+
+            var builder = new ConfigurationBuilder().AddEntityFrameworkConfig(context, "EFConfigurationProviderTests", "settings", @"{""Environment"":""Testing"", ""Username"":""Patrick1""}");
+            var configuration = builder.Build();
+
+            var value = configuration.GetValue<string>("TestSetting3");
+            Assert.Null(value);
+        }
+
+        [Fact]
+        public void Given_BasicTypeSettingWithDescriminator_When_MultiDescriminatorKeyInValid_Then_SettingNotRetrieved()
+        {
+            var context = this.Fixture.GetContext<ConfigurationContext>();
+
+            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "appSettings4", Aspect = "settings", Descriminator = @"{""Environment"":""Testing""}", ModifiedUser = "TestUser" };
+            context.Sections.Add(section);
+            context.SaveChanges();
+
+            var setting = new SettingEntity() { SectionId = section.Id, Key = "TestSetting4", Json = @"""Test Value""", ModifiedUser = "TestUser" };
+            setting.ValueType = null;
+
+            context.Settings.Add(setting);
+            context.SaveChanges();
+
+            this.Fixture.ClearChangeTracker();
+
+            var builder = new ConfigurationBuilder().AddEntityFrameworkConfig(context, "EFConfigurationProviderTests", "settings", @"{""Environment"":""Testing"", ""Username"":""Patrick""}");
+            var configuration = builder.Build();
+
+            var value = configuration.GetValue<string>("TestSetting4");
+            Assert.Null(value);
+        }
+
+        [Fact]
+        public void Given_BasicTypeSettingWithDefault_When_SettingLoaded_Then_SettingRetrieved()
+        {
+            var context = this.Fixture.GetContext<ConfigurationContext>();
+
+            var defaultSection = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "appSettings5", Aspect = "settings", ModifiedUser = "TestUser" };
+            context.Sections.Add(defaultSection);
+            context.SaveChanges();
+
+            var setting1 = new SettingEntity() { SectionId = defaultSection.Id, Key = "TestSetting5", Json = @"""Default Test Value""", ModifiedUser = "TestUser" };
+            setting1.ValueType = null;
+
+            context.Settings.Add(setting1);
+
+            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "appSettings6", Aspect = "settings", Descriminator = @"{""Username"":""Patrick""}", ModifiedUser = "TestUser" };
+            context.Sections.Add(section);
+            context.SaveChanges();
+
+            var setting2 = new SettingEntity() { SectionId = section.Id, Key = "TestSetting6", Json = @"""Test Value""", ModifiedUser = "TestUser" };
+            setting2.ValueType = null;
+
+            context.Settings.Add(setting2);
+            context.SaveChanges();
+
+            this.Fixture.ClearChangeTracker();
+
+            var builder = new ConfigurationBuilder()
+                .AddEntityFrameworkConfig(context, "EFConfigurationProviderTests")
+                .AddEntityFrameworkConfig(context, "EFConfigurationProviderTests", "settings", @"{""Username"":""Patrick""}");
+            var configuration = builder.Build();
+
+            var value = configuration.GetValue<string>("TestSetting6");
             Assert.True(value == "Test Value");
         }
 
@@ -46,7 +177,7 @@ namespace Configuration.EntityFramework.Tests
         {
             var context = this.Fixture.GetContext<ConfigurationContext>();
 
-            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "TestSection1", Aspect = "Settings", ModifiedUser = "TestUser" };
+            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "TestSection1", Aspect = "settings", ModifiedUser = "TestUser" };
             context.Sections.Add(section);
             context.SaveChanges();
 
@@ -73,7 +204,7 @@ namespace Configuration.EntityFramework.Tests
         {
             var context = this.Fixture.GetContext<ConfigurationContext>();
 
-            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "TestSection2", Aspect = "Settings", ModifiedUser = "TestUser" };
+            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "TestSection2", Aspect = "settings", ModifiedUser = "TestUser" };
             context.Sections.Add(section);
             context.SaveChanges();
 
@@ -115,7 +246,7 @@ namespace Configuration.EntityFramework.Tests
         {
             var context = this.Fixture.GetContext<ConfigurationContext>();
 
-            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "TestSection3", Aspect = "Settings", ModifiedUser = "TestUser" };
+            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "TestSection3", Aspect = "settings", ModifiedUser = "TestUser" };
             context.Sections.Add(section);
             context.SaveChanges();
 
