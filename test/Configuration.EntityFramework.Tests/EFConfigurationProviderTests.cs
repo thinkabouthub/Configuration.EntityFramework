@@ -46,7 +46,7 @@ namespace Configuration.EntityFramework.Tests
         {
             var context = this.Fixture.GetContext<ConfigurationContext>();
 
-            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "appSettings1", Aspect = "settings", Descriminator = @"{""Username"":""Patrick""}", ModifiedUser = "TestUser" };
+            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "appSettings1", Aspect = "settings", Discriminator = @"{""Username"":""Patrick""}", ModifiedUser = "TestUser" };
             context.Sections.Add(section);
             context.SaveChanges();
 
@@ -70,7 +70,7 @@ namespace Configuration.EntityFramework.Tests
         {
             var context = this.Fixture.GetContext<ConfigurationContext>();
 
-            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "appSettings2", Aspect = "settings", Descriminator = @"{""Environment"":""Testing"", ""Username"":""Patrick""}", ModifiedUser = "TestUser" };
+            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "appSettings2", Aspect = "settings", Discriminator = @"{""Environment"":""Testing"", ""Username"":""Patrick""}", ModifiedUser = "TestUser" };
             context.Sections.Add(section);
             context.SaveChanges();
 
@@ -94,7 +94,7 @@ namespace Configuration.EntityFramework.Tests
         {
             var context = this.Fixture.GetContext<ConfigurationContext>();
 
-            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "appSettings3", Aspect = "settings", Descriminator = @"{""Environment"":""Testing"", ""Username"":""Patrick""}", ModifiedUser = "TestUser" };
+            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "appSettings3", Aspect = "settings", Discriminator = @"{""Environment"":""Testing"", ""Username"":""Patrick""}", ModifiedUser = "TestUser" };
             context.Sections.Add(section);
             context.SaveChanges();
 
@@ -118,7 +118,7 @@ namespace Configuration.EntityFramework.Tests
         {
             var context = this.Fixture.GetContext<ConfigurationContext>();
 
-            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "appSettings4", Aspect = "settings", Descriminator = @"{""Environment"":""Testing""}", ModifiedUser = "TestUser" };
+            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "appSettings4", Aspect = "settings", Discriminator = @"{""Environment"":""Testing""}", ModifiedUser = "TestUser" };
             context.Sections.Add(section);
             context.SaveChanges();
 
@@ -151,7 +151,7 @@ namespace Configuration.EntityFramework.Tests
 
             context.Settings.Add(setting1);
 
-            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "appSettings6", Aspect = "settings", Descriminator = @"{""Username"":""Patrick""}", ModifiedUser = "TestUser" };
+            var section = new SectionEntity() { ApplicationName = "EFConfigurationProviderTests", SectionName = "appSettings6", Aspect = "settings", Discriminator = @"{""Username"":""Patrick""}", ModifiedUser = "TestUser" };
             context.Sections.Add(section);
             context.SaveChanges();
 

@@ -12,20 +12,20 @@ namespace Configuration.EntityFramework
 {
     public class EFConfigurationProvider : ConfigurationProvider
     {
-        public EFConfigurationProvider(Action<DbContextOptionsBuilder> optionsAction, string application = null, string descriminator = null, string aspect = "settings", bool ensureCreated = false)
+        public EFConfigurationProvider(Action<DbContextOptionsBuilder> optionsAction, string application = null, string discriminator = null, string aspect = "settings", bool ensureCreated = false)
         {
             this.OptionsAction = optionsAction;
             this.Application = application;
-            this.Descriminator = descriminator;
+            this.Discriminator = discriminator;
             this.Aspect = aspect;
             this.EnsureCreated = ensureCreated;
         }
 
-        public EFConfigurationProvider(ConfigurationContext context, string application = null, string descriminator = null, string aspect = "settings", bool ensureCreated = false)
+        public EFConfigurationProvider(ConfigurationContext context, string application = null, string discriminator = null, string aspect = "settings", bool ensureCreated = false)
         {
             this.Context = context;
             this.Application = application;
-            this.Descriminator = descriminator;
+            this.Discriminator = discriminator;
             this.Aspect = aspect;
             this.EnsureCreated = ensureCreated;
         }
@@ -34,7 +34,7 @@ namespace Configuration.EntityFramework
 
         protected virtual string Aspect { get; set; }
 
-        protected virtual string Descriminator { get; set; }
+        protected virtual string Discriminator { get; set; }
 
         protected virtual Action<DbContextOptionsBuilder> OptionsAction { get; set; }
 
@@ -67,10 +67,10 @@ namespace Configuration.EntityFramework
                 var sections = this.Context.Sections.Where(s =>
                         string.IsNullOrEmpty(this.Application) || (s.ApplicationName == this.Application)
                         && string.IsNullOrEmpty(this.Aspect) || (s.Aspect == this.Aspect)
-                        && s.Descriminator == this.Descriminator)
+                        && s.Discriminator == this.Discriminator)
                     .Include(s => s.Settings);
 
-                var filtered = this.FilterSectionsByDescriminator(sections, this.Descriminator);
+                var filtered = this.FilterSectionsByDescriminator(sections, this.Discriminator);
 
                 foreach (var section in filtered)
                 {
@@ -103,14 +103,14 @@ namespace Configuration.EntityFramework
             }
         }
 
-        protected virtual IEnumerable<SectionEntity> FilterSectionsByDescriminator(IEnumerable<SectionEntity> sections, string descriminator)
+        protected virtual IEnumerable<SectionEntity> FilterSectionsByDescriminator(IEnumerable<SectionEntity> sections, string discriminator)
         {
-            if (string.IsNullOrEmpty(descriminator))
+            if (string.IsNullOrEmpty(discriminator))
             {
                 return sections;
             }
             var filtered = new Collection<SectionEntity>();
-            var kvp = JsonConvert.DeserializeObject<Dictionary<string, string>>(descriminator);
+            var kvp = JsonConvert.DeserializeObject<Dictionary<string, string>>(discriminator);
             if (kvp != null && kvp.Any())
             {          
                 foreach (var section  in sections)
@@ -123,23 +123,23 @@ namespace Configuration.EntityFramework
             }
             else
             {
-                Debug.WriteLine($"Descriminator '{descriminator}' could not deserialize into 'Dictionary<string, string>'. Check descriminator is valid json formatted string");
+                Debug.WriteLine($"Discriminator '{discriminator}' could not deserialize into 'Dictionary<string, string>'. Check discriminator is valid json formatted string");
             }
             return filtered;
         }
 
-        protected virtual bool HasDescriminator(SectionEntity section, Dictionary<string, string> descriminator)
+        protected virtual bool HasDescriminator(SectionEntity section, Dictionary<string, string> discriminator)
         {
-            if (string.IsNullOrEmpty(section.Descriminator))
+            if (string.IsNullOrEmpty(section.Discriminator))
             {
                 return false;
             }
-            var compare = JsonConvert.DeserializeObject<Dictionary<string, string>>(section.Descriminator);
+            var compare = JsonConvert.DeserializeObject<Dictionary<string, string>>(section.Discriminator);
             if (compare != null && compare.Any())
             {
-                Debug.WriteLine($"Descriminator for section with Id '{section.Id}' and Name '{section.SectionName}' could not deserialize into 'Dictionary<string, string>'. Check descriminator is valid json formatted string");
+                Debug.WriteLine($"Discriminator for section with Id '{section.Id}' and Name '{section.SectionName}' could not deserialize into 'Dictionary<string, string>'. Check discriminator is valid json formatted string");
             }
-            return !descriminator.Any(kvp => !compare.ContainsKey(kvp.Key));
+            return !discriminator.Any(kvp => !compare.ContainsKey(kvp.Key));
         }
 
         protected virtual void AddJObjectToData(string section, JContainer json)

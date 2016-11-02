@@ -6,24 +6,24 @@ namespace Configuration.EntityFramework
 {
     public static class IConfigurationBuilderExtensions
     {
-        public static IConfigurationBuilder AddEntityFrameworkConfig(this IConfigurationBuilder builder, string application, string descriminator = null, string aspect = "settings", bool ensureCreated = false)
+        public static IConfigurationBuilder AddEntityFrameworkConfig(this IConfigurationBuilder builder, string application, string discriminator = null, string aspect = "settings", bool ensureCreated = false)
         {
-            return builder.Add(new EFConfigurationSource(application, descriminator, aspect, ensureCreated));
+            return builder.Add(new EFConfigurationSource(application, discriminator, aspect, ensureCreated));
         }
 
-        public static IConfigurationBuilder AddEntityFrameworkConfig(this IConfigurationBuilder builder,  Action<DbContextOptionsBuilder> options, string application = null, string descriminator = null, string aspect = "settings", bool ensureCreated = false)
+        public static IConfigurationBuilder AddEntityFrameworkConfig(this IConfigurationBuilder builder,  Action<DbContextOptionsBuilder> options, string application = null, string discriminator = null, string aspect = "settings", bool ensureCreated = false)
         {
-            return builder.Add(new EFConfigurationSource(options, application, descriminator, aspect, ensureCreated));
+            return builder.Add(new EFConfigurationSource(options, application, discriminator, aspect, ensureCreated));
         }
 
-        public static IConfigurationBuilder AddEntityFrameworkConfig(this IConfigurationBuilder builder, ConfigurationContext context, string application = null, string descriminator = null, string aspect = "settings", bool ensureCreated = false)
+        public static IConfigurationBuilder AddEntityFrameworkConfig(this IConfigurationBuilder builder, ConfigurationContext context, string application = null, string discriminator = null, string aspect = "settings", bool ensureCreated = false)
         {
-            return builder.Add(new EFConfigurationSource(context, application, descriminator, aspect, ensureCreated));
+            return builder.Add(new EFConfigurationSource(context, application, discriminator, aspect, ensureCreated));
         }
 
-        public static IConfigurationBuilder AddEntityFrameworkConfig(this IConfigurationBuilder builder, string descriminator = null, bool ensureCreated = false)
+        public static IConfigurationBuilder AddEntityFrameworkConfig(this IConfigurationBuilder builder, string discriminator = null, bool ensureCreated = false)
         {
-            return builder.Add(new EFConfigurationSource(descriminator, ensureCreated));
+            return builder.Add(new EFConfigurationSource(discriminator, ensureCreated));
         }
     }
 }

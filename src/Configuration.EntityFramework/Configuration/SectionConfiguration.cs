@@ -10,10 +10,10 @@ namespace Configuration.EntityFramework
         {
             b.ToTable("Section", "Configuration").HasKey(e => e.Id);
 
-            b.HasIndex(e => new {e.ApplicationName, e.Aspect, e.SectionName, e.Descriminator})
-                .HasName("IX_Section_ApplicationName_Aspect_SectionName_Descriminator").IsUnique();
+            b.HasAlternateKey(e => new {e.ApplicationName, e.Aspect, e.SectionName, e.Discriminator})
+                .HasName("IX_Section_ApplicationName_Aspect_SectionName_Discriminator");
 
-            b.Property(e => e.Descriminator)
+            b.Property(e => e.Discriminator)
                 .IsRequired(false)
                 .HasMaxLength(450);
 

@@ -14,45 +14,45 @@ namespace Configuration.EntityFramework
 
         protected virtual string Aspect { get; set; }
 
-        protected virtual string Descriminator { get; set; }
+        protected virtual string Discriminator { get; set; }
 
         protected virtual bool EnsureCreated { get; set; }
 
-        public EFConfigurationSource(string application, string descriminator = null, string aspect = "settings", bool ensureCreated = false)
+        public EFConfigurationSource(string application, string discriminator = null, string aspect = "settings", bool ensureCreated = false)
         {
             this.Application = application;
-            this.Descriminator = descriminator;
+            this.Discriminator = discriminator;
             this.Aspect = aspect;
             this.EnsureCreated = ensureCreated;
         }
 
-        public EFConfigurationSource(Action<DbContextOptionsBuilder> options, string application = null, string descriminator = null, string aspect = "settings", bool ensureCreated = false)
+        public EFConfigurationSource(Action<DbContextOptionsBuilder> options, string application = null, string discriminator = null, string aspect = "settings", bool ensureCreated = false)
         {
             this.OptionsAction = options;
             this.Application = application;
-            this.Descriminator = descriminator;
+            this.Discriminator = discriminator;
             this.Aspect = aspect;
             this.EnsureCreated = ensureCreated;
         }
 
-        public EFConfigurationSource(ConfigurationContext context, string application = null, string descriminator = null, string aspect = "settings", bool ensureCreated = false)
+        public EFConfigurationSource(ConfigurationContext context, string application = null, string discriminator = null, string aspect = "settings", bool ensureCreated = false)
         {
             this.Context = context;
             this.Application = application;
-            this.Descriminator = descriminator;
+            this.Discriminator = discriminator;
             this.Aspect = aspect;
             this.EnsureCreated = ensureCreated;
         }
 
-        public EFConfigurationSource(string descriminator = null, bool ensureCreated = false)
+        public EFConfigurationSource(string discriminator = null, bool ensureCreated = false)
         {
-            this.Descriminator = descriminator;
+            this.Discriminator = discriminator;
             this.EnsureCreated = ensureCreated;
         }
 
         public IConfigurationProvider Build(IConfigurationBuilder builder)
         {
-            return this.Context != null ? new EFConfigurationProvider(this.Context, this.Application, this.Descriminator, this.Aspect, this.EnsureCreated) : new EFConfigurationProvider(this.OptionsAction, this.Application, this.Aspect,  this.Descriminator, this.EnsureCreated);
+            return this.Context != null ? new EFConfigurationProvider(this.Context, this.Application, this.Discriminator, this.Aspect, this.EnsureCreated) : new EFConfigurationProvider(this.OptionsAction, this.Application, this.Aspect,  this.Discriminator, this.EnsureCreated);
         }
     }
 }
