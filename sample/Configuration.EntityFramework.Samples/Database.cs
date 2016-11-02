@@ -20,15 +20,15 @@ namespace Configuration.EntityFramework.Samples
             this.SeedAppSetting();
             this.SeedSectionWithChild();
             this.SeedSectionWithChildren();
-            this.SeedAppSettingWithDescriminator();
+            this.SeedAppSettingWithDiscriminator();
             return this;
         }
 
-        public Database SeedAppSettingWithDescriminator()
+        public Database SeedAppSettingWithDiscriminator()
         {
             using (var context = new ConfigurationContext())
             {
-                var section = new SectionEntity() { ApplicationName = "SampleApplication", Aspect = "settings", SectionName = "appSettings", Descriminator = @"{""Environment"":""Testing"", ""Username"":""Patrick""}" };
+                var section = new SectionEntity() { ApplicationName = "SampleApplication", Aspect = "settings", SectionName = "appSettings", Discriminator = @"{""Environment"":""Testing"", ""Username"":""Patrick""}" };
                 context.Sections.Add(section);
                 context.SaveChanges();
 

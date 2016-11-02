@@ -52,7 +52,7 @@ namespace Configuration.EntityFramework
 
         public IConfigurationProvider Build(IConfigurationBuilder builder)
         {
-            return this.Context != null ? new EFConfigurationProvider(this.Context, this.Application, this.Discriminator, this.Aspect, this.EnsureCreated) : new EFConfigurationProvider(this.OptionsAction, this.Application, this.Aspect,  this.Discriminator, this.EnsureCreated);
+            return this.Context != null ? new EFConfigurationProvider(this.Context, this.Application, this.Discriminator, this.Aspect, this.EnsureCreated) : new EFConfigurationProvider(this.OptionsAction, this.Application, this.Discriminator, this.Aspect, this.EnsureCreated);
         }
     }
 }

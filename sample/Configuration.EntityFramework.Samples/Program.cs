@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 
 namespace Configuration.EntityFramework.Samples
 {
@@ -15,7 +17,7 @@ namespace Configuration.EntityFramework.Samples
 
             //MainSample();
             //SettingsForApplicationSample();
-            SettingsWithDescriminatorSample();
+            SettingsWithDiscriminatorSample();
         }
 
         /// <summary>
@@ -61,16 +63,16 @@ namespace Configuration.EntityFramework.Samples
         }
 
         /// <summary>
-        /// Retrieve settings filtered by descriminator.
+        /// Retrieve settings filtered by discriminator.
         /// </summary>
-        public static void SettingsWithDescriminatorSample()
+        public static void SettingsWithDiscriminatorSample()
         {
             // Initial Configuration System
             var config = new ConfigurationBuilder()
                 .SetBasePath(Environment.CurrentDirectory)
                 .AddJsonFile("appsettings.json", true, true)
                 // Only load settings for user "Patrick"
-                .AddEntityFrameworkConfig(builder => builder.UseSqlServer(@"Data Source=.;Initial Catalog=Configuration.Samples;Integrated Security=True"), "SampleApplication", "settings", @"{""Username"":""Patrick""}").Build();
+                .AddEntityFrameworkConfig(builder => builder.UseSqlServer(@"Data Source=.;Initial Catalog=Configuration.Samples;Integrated Security=True"), "SampleApplication", @"{""Username"":""Patrick""}").Build();
 
             var test = config.GetValue<string>("UserTestSetting");
         }
