@@ -20,6 +20,7 @@ namespace Configuration.EntityFramework.Samples
             this.SeedAppSetting();
             this.SeedSectionWithChild();
             this.SeedSectionWithChildren();
+            this.SeedAppSettingWithDescriminator();
             return this;
         }
 
@@ -27,7 +28,7 @@ namespace Configuration.EntityFramework.Samples
         {
             using (var context = new ConfigurationContext())
             {
-                var section = new SectionEntity() { ApplicationName = "SampleApplication", SectionName = "appSettings", Aspect = "settings", Descriminator = @"{""Environment"":""Testing"", ""Username"":""Patrick""}" };
+                var section = new SectionEntity() { ApplicationName = "SampleApplication", Aspect = "settings", SectionName = "appSettings", Descriminator = @"{""Environment"":""Testing"", ""Username"":""Patrick""}" };
                 context.Sections.Add(section);
                 context.SaveChanges();
 
@@ -42,7 +43,7 @@ namespace Configuration.EntityFramework.Samples
         {
             using (var context = new ConfigurationContext())
             {
-                var section = new SectionEntity() { ApplicationName = "SampleApplication", SectionName = "appSettings", Aspect = "settings" };
+                var section = new SectionEntity() { ApplicationName = "SampleApplication", Aspect = "settings", SectionName = "appSettings" };
                 context.Sections.Add(section);
                 context.SaveChanges();
 
@@ -68,7 +69,7 @@ namespace Configuration.EntityFramework.Samples
                     }
                 };
 
-                var section = new SectionEntity() { ApplicationName = "SampleApplication", SectionName = "SectionWithChild", Aspect = "settings" };
+                var section = new SectionEntity() { ApplicationName = "SampleApplication", Aspect = "settings", SectionName = "SectionWithChild" };
                 context.Sections.Add(section);
                 context.SaveChanges();
 
@@ -108,7 +109,7 @@ namespace Configuration.EntityFramework.Samples
                     }
                 );
 
-                var section = new SectionEntity() { ApplicationName = "SampleApplication", SectionName = "SectionWithChildren", Aspect = "settings" };
+                var section = new SectionEntity() { ApplicationName = "SampleApplication", Aspect = "settings", SectionName = "SectionWithChildren" };
                 context.Sections.Add(section);
                 context.SaveChanges();
 
