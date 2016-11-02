@@ -10,8 +10,8 @@ namespace Configuration.EntityFramework
         {
             b.ToTable("Section", "Configuration").HasKey(e => e.Id);
 
-            b.HasIndex(e => new { e.ApplicationName, e.Aspect, e.SectionName })
-                .HasName("IX_Section_ApplicationName_Aspect_SectionName").IsUnique();
+            b.HasIndex(e => new {e.ApplicationName, e.Aspect, e.SectionName, e.Descriminator})
+                .HasName("IX_Section_ApplicationName_Aspect_SectionName_Descriminator").IsUnique();
 
             b.Property(e => e.Descriminator)
                 .IsRequired(false)
