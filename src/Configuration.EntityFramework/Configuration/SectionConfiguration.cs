@@ -8,10 +8,14 @@ namespace Configuration.EntityFramework
     {
         public override void Map(EntityTypeBuilder<SectionEntity> b)
         {
-            b.ToTable("Section", "Configuration");
+            b.ToTable("Section", "Configuration").HasKey(e => e.Id);
 
-            b.HasIndex(e => new { e.ApplicationName, e.Aspect, e.SectionName, e.Descriminator })
-                .HasName("IX_Section_ApplicationName_Aspect_SectionName_Descriminator");
+            b.HasIndex(e => new { e.ApplicationName, e.Aspect, e.SectionName })
+                .HasName("IX_Section_ApplicationName_Aspect_SectionName").IsUnique();
+
+            b.Property(e => e.Descriminator)
+                .IsRequired(false)
+                .HasMaxLength(450);
 
             b.Property(e => e.ApplicationName)
                 .IsRequired()

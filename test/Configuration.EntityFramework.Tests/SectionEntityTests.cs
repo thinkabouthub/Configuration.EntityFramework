@@ -52,7 +52,7 @@ namespace Configuration.EntityFramework.Tests
         }
 
         [Fact]
-        public void Given_AddSection_When_SectionIsDuplicate_Then_SectionNotPersisted()
+        public void Given_AddSection_When_SectionNameIsDuplicate_Then_SectionNotPersisted()
         {
             var context = this.Fixture.GetContext<ConfigurationContext>();
 
@@ -62,7 +62,7 @@ namespace Configuration.EntityFramework.Tests
                 context.Sections.Add(new SectionEntity() { ApplicationName = "DbContextSectionTests.Duplicate", SectionName = "appSettingsC", Aspect = "settings", ModifiedUser = "TestUser" });
                 context.SaveChanges();
             });
-            Assert.True(exception.InnerException != null && exception.InnerException.Message.StartsWith("Cannot insert duplicate key row in object 'Configuration.Section' with unique index 'IX_Section_ApplicationName_SectionName'"));
+            Assert.True(exception.InnerException != null && exception.InnerException.Message.StartsWith("Cannot insert duplicate key row in object 'Configuration.Section' with unique index 'IX_Section_ApplicationName_Aspect_SectionName'"));
         }
     }
 }
