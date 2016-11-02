@@ -138,7 +138,15 @@ namespace Configuration.EntityFramework
             {
                 Debug.WriteLine($"Discriminator for section with Id '{section.Id}' and Name '{section.SectionName}' could not deserialize into 'Dictionary<string, string>'. Check discriminator is valid json formatted string");
             }
-            return !discriminator.Any(kvp => !compare.ContainsKey(kvp.Key));
+            foreach (var kvp in discriminator)
+            {
+                var value = compare.FirstOrDefault(e => e.Key == kvp.Key);
+                if (string.IsNullOrEmpty(value.Key) || (!string.IsNullOrEmpty(value.Key) && value.Value != kvp.Value))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         protected virtual void AddJObjectToData(string section, JContainer json)
