@@ -140,11 +140,7 @@ namespace Configuration.EntityFramework
             }
             foreach (var kvp in discriminator)
             {
-                var value = compare.FirstOrDefault(e => e.Key == kvp.Key);
-                if (string.IsNullOrEmpty(value.Key) || (!string.IsNullOrEmpty(value.Key) && value.Value != kvp.Value))
-                {
-                    return false;
-                }
+                if (!compare.Any(e => e.Equals(kvp))) return false;
             }
             return true;
         }
