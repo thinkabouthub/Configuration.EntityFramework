@@ -20,10 +20,5 @@ namespace Configuration.EntityFramework
         {
             return builder.Add(new EFConfigurationSource(context, application, discriminator, aspect, ensureCreated));
         }
-
-        public static IConfigurationBuilder AddEntityFrameworkConfig(this IConfigurationBuilder builder, string discriminator, bool ensureCreated)
-        {
-            return builder.Add(new EFConfigurationSource(discriminator, ensureCreated));
-        }
     }
 }
