@@ -10,7 +10,7 @@ namespace Configuration.EntityFramework
     {
         private static IEnumerable<Type> GetMappingTypes(this Assembly assembly, Type mappingInterface)
         {
-            return assembly.GetTypes().Where(x => !x.GetTypeInfo().IsAbstract && x.GetInterfaces().Any(y => y.GetTypeInfo().IsGenericType && (y.GetGenericTypeDefinition() == mappingInterface)));
+            return assembly.GetTypes().Where(x => !x.GetTypeInfo().IsAbstract && x.GetTypeInfo().GetInterfaces().Any(y => y.GetTypeInfo().IsGenericType && (y.GetGenericTypeDefinition() == mappingInterface)));
         }
 
         public static void AddEntityConfigurationsFromAssembly(this ModelBuilder modelBuilder, Assembly assembly)
