@@ -12,7 +12,7 @@ if not "%BuildCounter%" == "" (
 
 REM (optional) build.bat is in the root of our repo, cd to the correct folder where sources/projects are
 echo %cd%
-echo %cd src\Configuration.EntityFramework%
+
 REM Restore
 call dotnet restore
 if not "%errorlevel%"=="0" goto failure
