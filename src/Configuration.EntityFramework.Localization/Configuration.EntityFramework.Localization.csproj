@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Description>Configuration.EntityFramework.Localization provides custom localization components. These components leverage Configuration.EntityFramework for persistence</Description>
     <VersionPrefix>1.0.1</VersionPrefix>
-    <TargetFrameworks>netcoreapp1.0;net462</TargetFrameworks>
+    <TargetFramework>net462</TargetFramework>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>Configuration.EntityFramework.Localization</AssemblyName>
