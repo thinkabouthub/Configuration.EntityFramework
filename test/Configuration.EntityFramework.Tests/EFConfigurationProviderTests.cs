@@ -26,7 +26,7 @@ namespace Configuration.EntityFramework.Tests
             context.Sections.Add(section);
             context.SaveChanges();
 
-            var setting = new SettingEntity() { SectionId = section.Id, Key = "TestSetting", Json = @"""Test Value""", ModifiedUser = "TestUser" };
+            var setting = new SettingEntity() { SectionId = section.Id, Key = "TestSetting", Json = @"Test Value", ModifiedUser = "TestUser" };
             setting.ValueType = null;
 
             context.Settings.Add(setting);
@@ -50,7 +50,7 @@ namespace Configuration.EntityFramework.Tests
             context.Sections.Add(section);
             context.SaveChanges();
 
-            var setting = new SettingEntity() { SectionId = section.Id, Key = "TestSetting1", Json = @"""Test Value""", ModifiedUser = "TestUser" };
+            var setting = new SettingEntity() { SectionId = section.Id, Key = "TestSetting1", Json = @"Test Value", ModifiedUser = "TestUser" };
             setting.ValueType = null;
 
             context.Settings.Add(setting);
@@ -74,7 +74,7 @@ namespace Configuration.EntityFramework.Tests
             context.Sections.Add(section);
             context.SaveChanges();
 
-            var setting = new SettingEntity() { SectionId = section.Id, Key = "TestSetting2", Json = @"""Test Value""", ModifiedUser = "TestUser" };
+            var setting = new SettingEntity() { SectionId = section.Id, Key = "TestSetting2", Json = @"Test Value", ModifiedUser = "TestUser" };
             setting.ValueType = null;
 
             context.Settings.Add(setting);
@@ -155,7 +155,7 @@ namespace Configuration.EntityFramework.Tests
             context.Sections.Add(section);
             context.SaveChanges();
 
-            var setting2 = new SettingEntity() { SectionId = section.Id, Key = "TestSetting6", Json = @"""Test Value""", ModifiedUser = "TestUser" };
+            var setting2 = new SettingEntity() { SectionId = section.Id, Key = "TestSetting6", Json = @"Test Value", ModifiedUser = "TestUser" };
             setting2.ValueType = null;
 
             context.Settings.Add(setting2);
