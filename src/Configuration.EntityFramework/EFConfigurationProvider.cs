@@ -79,15 +79,15 @@ namespace Configuration.EntityFramework
                     {
                         Debug.WriteLine($"Adding Setting with Id '{setting.Id}' and Key '{setting.Key}' and Value '{setting.Json}' to Configuration Provider");
 
-                        var data = JsonConvert.DeserializeObject(setting.Json);
-                        var container = data as JContainer;
-                        if (container != null)
+                        if (this.IsJsonObjectOrArray(setting.Json))
                         {
+                            var data = JsonConvert.DeserializeObject(setting.Json);
+                            var container = (JContainer)data;
                             this.AddJObjectToData(section.SectionName, container);
                         }
                         else
                         {
-                            this.AddSetting(setting.Key, data.ToString());
+                            this.AddSetting(setting.Key, setting.Json);
                         }
                     }
                 }
@@ -100,6 +100,17 @@ namespace Configuration.EntityFramework
                     this.Context = null;
                 }
             }
+        }
+
+        protected virtual bool IsJsonObjectOrArray(string value)
+        {
+            value = value.Trim();
+            if ((value.StartsWith("{") && value.EndsWith("}")) || //For object
+                (value.StartsWith("[") && value.EndsWith("]"))) //For array
+            {
+                return true;
+            }
+            return false;
         }
 
         protected virtual IEnumerable<SectionEntity> FilterSectionsByDescriminator(IEnumerable<SectionEntity> sections, string discriminator)

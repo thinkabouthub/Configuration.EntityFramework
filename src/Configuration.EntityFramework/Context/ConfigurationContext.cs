@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -17,7 +18,7 @@ namespace Configuration.EntityFramework
         {
         }
 
-        public ConfigurationContext(DbContextOptions<ConfigurationContext> options, ILoggerFactory loggerFactory)
+        public ConfigurationContext(DbContextOptions options)
             : base(options)
         {
         }
@@ -40,7 +41,7 @@ namespace Configuration.EntityFramework
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.AddEntityConfigurationsFromAssembly(GetType().GetTypeInfo().Assembly);
+            modelBuilder.AddEntityConfigurationsFromAssembly(Type.GetType("Configuration.EntityFramework.ConfigurationContext, Configuration.EntityFramework").Assembly);
         }
     }
 }

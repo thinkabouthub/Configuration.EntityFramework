@@ -13,12 +13,12 @@ namespace Configuration.EntityFramework
             return configuration.GetSection(section) != null;
         }
 
-        public static T TryGetSection<T>(this IConfigurationRoot configuration, string section, bool loadDefaultValues = true) where T : new()
+        public static T TryGetSection<T>(this IConfigurationRoot configuration, string section, bool loadDefaultValues = true) where T : class, new()
         {
-            return SectionExists(configuration, section) ? GetSection<T>(configuration, section, loadDefaultValues) : default(T);
+            return SectionExists(configuration, section) ? GetSection<T>(configuration, section, loadDefaultValues) : null;
         }
 
-        public static T GetSection<T>(this IConfigurationRoot configuration, string section, bool loadDefaultValues = true) where T : new()
+        public static T GetSection<T>(this IConfigurationRoot configuration, string section, bool loadDefaultValues = true) where T : class, new()
         {
             var instance = new T();
             if (loadDefaultValues) configuration.LoadDefaultValues(instance);
