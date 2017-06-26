@@ -10,7 +10,7 @@ namespace Configuration.EntityFramework
     {
         public static bool SectionExists(this IConfigurationRoot configuration, string section)
         {
-            return configuration.GetSection(section) != null;
+            return configuration.GetChildren().Any(item => item.Key == section);
         }
 
         public static T TryGetSection<T>(this IConfigurationRoot configuration, string section, bool loadDefaultValues = true) where T : class, new()
