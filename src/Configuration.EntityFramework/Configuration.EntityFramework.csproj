@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Description>Configuration.EntityFramework is a custom configuration provider for the .NET Core Configuration system. It's built on EntityFrameworkCore allowing configuration settings to be stored in a wide variety of repositories</Description>
     <VersionPrefix>1.0.1</VersionPrefix>
-    <TargetFramework>net462</TargetFramework>
+    <TargetFramework>netstandard1.6</TargetFramework>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>Configuration.EntityFramework</AssemblyName>
@@ -29,11 +29,6 @@
     <PackageReference Include="Newtonsoft.Json" Version="10.0.1" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">
-    <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>
-  
   <Target Name="PostcompileScript" AfterTargets="Build" Condition=" '$(IsCrossTargetingBuild)' != 'true' ">
     <Exec Command="dotnet pack --no-build --configuration $(Configuration)" />
   </Target>

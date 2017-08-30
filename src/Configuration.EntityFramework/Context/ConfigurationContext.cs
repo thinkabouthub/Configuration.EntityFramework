@@ -41,7 +41,7 @@ namespace Configuration.EntityFramework
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.AddEntityConfigurationsFromAssembly(Type.GetType("Configuration.EntityFramework.ConfigurationContext, Configuration.EntityFramework").Assembly);
+            modelBuilder.AddEntityConfigurationsFromAssembly(Type.GetType("Configuration.EntityFramework.ConfigurationContext, Configuration.EntityFramework").GetTypeInfo().Assembly);
         }
     }
 }
