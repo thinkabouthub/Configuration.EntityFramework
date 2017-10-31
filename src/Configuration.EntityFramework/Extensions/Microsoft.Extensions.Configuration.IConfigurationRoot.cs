@@ -2,9 +2,9 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using Microsoft.Extensions.Configuration;
+using Configuration.EntityFramework;
 
-namespace Configuration.EntityFramework
+namespace Microsoft.Extensions.Configuration
 {
     public static class IConfigurationRootExtensions
     {

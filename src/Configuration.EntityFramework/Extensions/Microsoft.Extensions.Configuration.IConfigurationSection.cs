@@ -1,8 +1,7 @@
 ﻿using System;
-using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 
-namespace Configuration.EntityFramework
+namespace Microsoft.Extensions.Configuration
 {
     public static class IConfigurationSectionExtensions
     {

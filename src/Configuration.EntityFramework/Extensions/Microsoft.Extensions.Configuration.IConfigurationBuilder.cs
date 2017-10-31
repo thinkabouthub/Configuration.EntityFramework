@@ -1,8 +1,8 @@
 ﻿using System;
+using Configuration.EntityFramework;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
-namespace Configuration.EntityFramework
+namespace Microsoft.Extensions.Configuration
 {
     public static class IConfigurationBuilderExtensions
     {
