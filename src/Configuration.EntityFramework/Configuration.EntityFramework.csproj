@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Description>Configuration.EntityFramework is a custom configuration provider for the .NET Core Configuration system. It's built on EntityFrameworkCore allowing configuration settings to be stored in a wide variety of repositories</Description>
     <VersionPrefix>1.0.1</VersionPrefix>
-    <TargetFramework>netstandard1.6</TargetFramework>
+    <TargetFrameworks>netstandard1.5;netstandard1.6</TargetFrameworks>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>Configuration.EntityFramework</AssemblyName>
