@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Description>Configuration.EntityFramework is a custom configuration provider for the .NET Core Configuration system. It's built on EntityFrameworkCore allowing configuration settings to be stored in a wide variety of repositories</Description>
     <VersionPrefix>1.0.1</VersionPrefix>
-    <TargetFrameworks>netstandard1.5;netstandard1.6;net461;net462</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net461;net462</TargetFrameworks>
     <NoWarn>$(NoWarn);1591</NoWarn>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>Configuration.EntityFramework</AssemblyName>
@@ -24,10 +24,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.1.2" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="1.1.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.2" />
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
 
 

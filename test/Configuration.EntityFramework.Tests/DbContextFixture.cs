@@ -143,7 +143,7 @@ namespace Configuration.EntityFramework.Tests
                 while (this.Context.Any())
                 {
                     var context = this.Context.First();
-                    context.Database.EnsureDeleted();
+                    //context.Database.EnsureDeleted();
                     context.Dispose();
                 }
 
