@@ -23,6 +23,8 @@ namespace Configuration.EntityFramework
         [MaxLength(50)]
         public virtual string Aspect { get; set; }
 
+        public Guid? Tenant { get; set; }
+
         public virtual DateTime? Modified { get; set; }
 
         [MaxLength(50)]

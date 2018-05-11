@@ -22,6 +22,8 @@ namespace Configuration.EntityFramework
 
             b.Property(e => e.Aspect).HasMaxLength(50);
 
+            b.Property(e => e.Tenant);
+
             b.Property(e => e.Modified).HasDefaultValueSql("getdate()");
 
             b.Property(e => e.ModifiedUser).HasMaxLength(50);
