@@ -34,7 +34,7 @@ Some settings, such as a connection string or those required during the initiali
 
 # Compatibility
 
-Configuration.EntityFramework is **compatible** with **.NET Core** and **.NET 4.6.2 or greater**.
+Configuration.EntityFramework is **compatible** with **netstandard2.0*, net461 and net462**.
 
 # How do I get started?
 Our [Sample Project](https://github.com/thinkabouthub/Configuration.EntityFramework/tree/master/sample) demonstrates how to use Configuration.EntityFramework and gives you some starting points for learning more. Additionally, the [Getting Started](https://github.com/thinkabouthub/Configuration.EntityFramework/wiki/getting-started/) tutorial walks you through using Configuration.EntityFramework in a simple ASP.NET Core app.
