@@ -18,7 +18,7 @@ namespace Configuration.EntityFramework
 
         protected virtual bool EnsureCreated { get; set; }
 
-        public EFConfigurationSource(string application = null, string discriminator = null, string aspect = "settings", bool ensureCreated = false)
+        public EFConfigurationSource(string application = null, string discriminator = null, string aspect = "Application", bool ensureCreated = false)
         {
             this.Application = application;
             this.Discriminator = discriminator;
@@ -26,7 +26,7 @@ namespace Configuration.EntityFramework
             this.EnsureCreated = ensureCreated;
         }
 
-        public EFConfigurationSource(Action<DbContextOptionsBuilder> options, string application = null, string discriminator = null, string aspect = "settings", bool ensureCreated = false)
+        public EFConfigurationSource(Action<DbContextOptionsBuilder> options, string application = null, string discriminator = null, string aspect = "Application", bool ensureCreated = false)
         {
             this.OptionsAction = options;
             this.Application = application;
@@ -35,7 +35,7 @@ namespace Configuration.EntityFramework
             this.EnsureCreated = ensureCreated;
         }
 
-        public EFConfigurationSource(ConfigurationContext context, string application = null, string discriminator = null, string aspect = "settings", bool ensureCreated = false)
+        public EFConfigurationSource(ConfigurationContext context, string application = null, string discriminator = null, string aspect = "Application", bool ensureCreated = false)
         {
             this.Context = context;
             this.Application = application;
